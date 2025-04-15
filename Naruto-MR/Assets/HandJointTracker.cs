@@ -70,16 +70,16 @@ public class HandJointTracker : MonoBehaviour
        // check the distance between left and right ThumbMetacarpal joint
         if (leftHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose leftIndexDistal) &&
             rightHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose rightIndexDistal) &&
-            leftHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose leftThumbMetacarpal) &&
-            rightHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose rightThumbMetacarpal)
+            leftHandJoints.TryGetValue(XRHandJointID.ThumbProximal, out Pose leftThumbProximal) &&
+            rightHandJoints.TryGetValue(XRHandJointID.ThumbProximal, out Pose rightThumbProximal)
             )
         {
             float distance_indexdistal = leftIndexDistal.position.x - rightIndexDistal.position.x;
-            float distance_thumbmetacarpal = leftThumbMetacarpal.position.y - rightThumbMetacarpal.position.y;
+            float distance_thumbmetacarpal = leftThumbProximal.position.y - rightThumbProximal.position.y;
             // Debug.Log($"Distance between left and right IndexTip: {distance_indextip}");
             //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_indexdistal > 0f && distance_indexdistal < 0.05f) &&
-                (distance_thumbmetacarpal < -0.10f && distance_thumbmetacarpal > -0.12f)
+            if ((distance_indexdistal > -0.01f && distance_indexdistal < 0.01f) &&
+                (distance_thumbmetacarpal < 0.002f && distance_thumbmetacarpal > 0f)
                 
             )
             {
@@ -96,8 +96,8 @@ public class HandJointTracker : MonoBehaviour
        
        if (leftHandJoints.TryGetValue(XRHandJointID.MiddleTip, out Pose leftMiddleTip) &&
            rightHandJoints.TryGetValue(XRHandJointID.MiddleTip, out Pose rightMiddleTip) &&
-           leftHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose leftIndexTip) &&
-           rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightIndexTip) &&
+           leftHandJoints.TryGetValue(XRHandJointID.LittleIntermediate, out Pose leftLittleIntermediate) &&
+           rightHandJoints.TryGetValue(XRHandJointID.IndexIntermediate, out Pose rightIndexIntermediate) &&
            leftHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose leftThumbMetacarpal) &&
            rightHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose rightThumbMetacarpal) &&
            leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPalm) &&
@@ -105,19 +105,25 @@ public class HandJointTracker : MonoBehaviour
            )
        {
             float distance_middletip = leftMiddleTip.position.x - rightMiddleTip.position.x;
-            float distance_indextip = leftIndexTip.position.x - rightIndexTip.position.x;
-            float distance_thumbmetacarpal = leftThumbMetacarpal.position.y - rightThumbMetacarpal.position.y;
-            float distance_palm = leftPalm.position.y - rightPalm.position.y;
-            // Debug.Log($"Distance between left and right IndexTip: {distance_indextip}");
+            float distance_indextip = leftLittleIntermediate.position.y - rightIndexIntermediate.position.y;
+            
+            //Debug.Log($"QQ Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > -0.09f && distance_indextip < 0f) ? "true" : "false")}");
+            //Debug.Log($"QQ Distance between left and right MiddleTip: {distance_middletip}, {((distance_middletip > -0.17f && distance_middletip < -0.15f) ? "true" : "false")}");
+            // print the condition is matched or not
             //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_middletip > 0f && distance_middletip < 0.05f) &&
-                (distance_indextip < -0.10f && distance_indextip > -0.12f) &&
-                (distance_thumbmetacarpal < -0.10f && distance_thumbmetacarpal > -0.12f) &&
-                (distance_palm < -0.10f && distance_palm > -0.12f)
-                
+            if ((distance_middletip > 0.07f && distance_middletip < 0.1f) &&
+                (distance_indextip > -0.09f && distance_indextip < 0f) 
             )
             {
-                return true; // Replace with actual gesture name
+                Quaternion leftPalmRotation = leftPalm.rotation;
+                Quaternion rightPalmRotation = rightPalm.rotation;
+                // print the rotation of left and right Palm joint
+                
+                float angle = leftPalmRotation.eulerAngles.x + rightPalmRotation.eulerAngles.x;
+                if (angle > 343 && angle < 355f)
+                {
+                    return true; // Replace with actual gesture name Left Palm Rotation: (355.83, 35.95, 96.82) Right Palm Rotation: (352.50, 215.55, 76.88)
+                }
             }
         }
         return false;
@@ -126,15 +132,21 @@ public class HandJointTracker : MonoBehaviour
     bool IsGestureI() {
         // check the distance between left and right ThumbMetacarpal joint
        // check the rotation of left and right ThumbMetacarpal joint
+       // TODO: a little conflict with gesture "Tora"
 
-        if (leftHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose leftThumbMetacarpal) &&
-            rightHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose rightThumbMetacarpal)
+        if (leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPalm) &&
+            rightHandJoints.TryGetValue(XRHandJointID.Palm, out Pose rightPalm)
             )
         {
-            float distance_thumbmetacarpal = leftThumbMetacarpal.position.y - rightThumbMetacarpal.position.y;
+            float distance_palm = leftPalm.position.z - rightPalm.position.z;
+            // get rotation x of left and right Palm joint
+            Quaternion leftPalmRotation = leftPalm.rotation;
+            Quaternion rightPalmRotation = rightPalm.rotation;
             // Debug.Log($"Distance between left and right IndexTip: {distance_indextip}");
             //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_thumbmetacarpal < -0.10f && distance_thumbmetacarpal > -0.12f)
+            if ((leftPalmRotation.eulerAngles.x > 50f && leftPalmRotation.eulerAngles.x < 65f) &&
+                (rightPalmRotation.eulerAngles.x > 50f && rightPalmRotation.eulerAngles.x < 65f) &&
+                (distance_palm > 0f && distance_palm < 0.07f)
                 
             )
             {
@@ -149,31 +161,27 @@ public class HandJointTracker : MonoBehaviour
        // check the distance between top and bottom of IndexTip joint and ThumbMetacarpal joint
        // check the distance between left and right Palm joint
        // check the rotation of left and right Palm joint
-       if (leftHandJoints.TryGetValue(XRHandJointID.MiddleTip, out Pose leftMiddleTip) &&
-           rightHandJoints.TryGetValue(XRHandJointID.MiddleTip, out Pose rightMiddleTip) &&
-           leftHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose leftIndexTip) &&
-           rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightIndexTip) &&
-           leftHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose leftThumbMetacarpal) &&
-           rightHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose rightThumbMetacarpal) &&
-           leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPalm) &&
-           rightHandJoints.TryGetValue(XRHandJointID.Palm, out Pose rightPalm)
+       if (leftHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose leftIndexDistal) &&
+            rightHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose rightIndexDistal) &&
+            rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightIndexTip) &&
+            rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightIndexProximal)
            )
        {
-            float distance_middletip = leftMiddleTip.position.x - rightMiddleTip.position.x;
-            float distance_indextip = leftIndexTip.position.x - rightIndexTip.position.x;
-            float distance_thumbmetacarpal = leftThumbMetacarpal.position.y - rightThumbMetacarpal.position.y;
-            float distance_palm = leftPalm.position.y - rightPalm.position.y;
-            // Debug.Log($"Distance between left and right IndexTip: {distance_indextip}");
-            //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_middletip > 0f && distance_middletip < 0.05f) &&
-                (distance_indextip < -0.10f && distance_indextip > -0.12f) &&
-                (distance_thumbmetacarpal < -0.10f && distance_thumbmetacarpal > -0.12f) &&
-                (distance_palm < -0.10f && distance_palm > -0.12f)
+            float distance_indexdistal = leftIndexDistal.position.x - rightIndexDistal.position.x;
+            float distance_indextip = rightIndexProximal.position.y - rightIndexTip.position.y;
+            float distance_indextip_z = rightIndexProximal.position.z - rightIndexTip.position.z;
+            //Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.01f && distance_indextip < 0.03f) ? "true" : "false")}");
+            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.06f && distance_indexdistal < 0.085f) ? "true" : "false")}");
+            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.01f && distance_indextip_z < 0f) ? "true" : "false")}");
+            if ((distance_indexdistal > 0.06f && distance_indexdistal < 0.085f) &&
+                (distance_indextip > 0.01f && distance_indextip < 0.03f) &&
+                (distance_indextip_z > -0.01f && distance_indextip_z < 0f)
                 
             )
             {
-                return true; // Replace with actual gesture name
+               return true;
             }
+            
         }
         return false;
     }
@@ -211,6 +219,15 @@ public class HandJointTracker : MonoBehaviour
         // Implement your gesture recognition logic here
         // For example, you can check the positions of the joints and return a gesture name
 
+        // The order of checking is important, so that the gesture can be detected correctly
+        // TODO: can change the order by the usage frequency or detect success percentage of the gesture
+
+        // gesture "Saru"
+         if (IsGestureSaru())
+         {
+                return "Saru"; // Replace with actual gesture name
+         }
+
         // gesture Ne 
         if (IsGestureNe())
         {
@@ -218,18 +235,14 @@ public class HandJointTracker : MonoBehaviour
         }
 
        // gesture "Tora"
-       /*
+       
          if (IsGestureTora())
          {
               return "Tora"; // Replace with actual gesture name
          }
        
-       // gesture "Saru"
-         if (IsGestureSaru())
-         {
-                return "Saru"; // Replace with actual gesture name
-         }
 
+        
        // gesture "I"
         if (IsGestureI())
         {
@@ -237,12 +250,14 @@ public class HandJointTracker : MonoBehaviour
         }
        
 
+
         // gesture "Mi"
        if (IsGestureMi())
         {
                 return "Mi"; // Replace with actual gesture name
         }
 
+/*
         // gesture "Uma"
          if (IsGestureUma()) {
                 return "Uma"; // Replace with actual gesture name
@@ -282,8 +297,11 @@ public class HandJointTracker : MonoBehaviour
             if (jointID == XRHandJointID.IndexProximal)
             {
                 // count the distance of x, y and z between left and right IndexProximal joint
-                if (leftHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose leftPose) &&
-                    rightHandJoints.TryGetValue(XRHandJointID.ThumbMetacarpal, out Pose rightPose))
+                // -0.17~-0.18f
+                if (leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPose) &&
+                    rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightPose) &&
+                    rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightPose2)
+                    )
                 {
                     float distanceX = (leftPose.position.x - rightPose.position.x);
                     float distanceY = (leftPose.position.y - rightPose.position.y);
