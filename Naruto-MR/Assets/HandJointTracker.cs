@@ -327,7 +327,7 @@ public class HandJointTracker : MonoBehaviour
             }
             // Debug.Log($"{hand.handedness} {jointID}: {pose.position}");
             string gesture = GetGesture();
-            if (gesture != "None")
+            if (gesture != "None") 
             {
                 // pop the top element of the gesture array if the gesture is detected and the gesture is same as the current gesture's top element
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
