@@ -1,0 +1,2 @@
+C:\Users\NYCU-EC028\Naruto-MR\Naruto-MR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\NYCU-EC028\Naruto-MR\Naruto-MR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

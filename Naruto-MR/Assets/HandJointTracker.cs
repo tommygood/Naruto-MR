@@ -288,7 +288,7 @@ public class HandJointTracker : MonoBehaviour
                     float distanceX = (leftPose.position.x - rightPose.position.x);
                     float distanceY = (leftPose.position.y - rightPose.position.y);
                     float distanceZ = (leftPose.position.z - rightPose.position.z);
-                    Debug.Log($"Distance between left and right IndexTip: X: {distanceX}, Y: {distanceY}, Z: {distanceZ}");
+                    //Debug.Log($"Distance between left and right IndexTip: X: {distanceX}, Y: {distanceY}, Z: {distanceZ}");
                 }
             }
             // Debug.Log($"{hand.handedness} {jointID}: {pose.position}");
