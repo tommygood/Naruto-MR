@@ -4,12 +4,22 @@ using System.Collections.Generic;
 using UnityEngine.XR.Management;
 using UnityEngine.SubsystemsImplementation;
 
+public class NinjutsuGesture
+{
+    public string name; // Name of the ninjutsu
+    public string atrribute; // Attribute of the ninjutsu
+    public string[] gestures; // Array of gesture names
+    public string[] current_gestures; // Array of current gesture names
+}
+
 public class HandJointTracker : MonoBehaviour
 {
     private XRHandSubsystem handSubsystem;
     // track each hand's joints position and rotation
     private Dictionary<XRHandJointID, Pose> leftHandJoints = new Dictionary<XRHandJointID, Pose>();
     private Dictionary<XRHandJointID, Pose> rightHandJoints = new Dictionary<XRHandJointID, Pose>();
+
+    private NinjutsuGesture[] ninjutsuGestures; // Array of Ninjutsu gestures
 
     void Start()
     {
@@ -19,6 +29,13 @@ public class HandJointTracker : MonoBehaviour
         {
             handSubsystem = subsystems[0];
         }
+        // initialize the ninjutsu gesture
+        ninjutsuGestures = new NinjutsuGesture[]
+        {
+            new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" } },
+            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" } },
+        };
+        
     }
 
     void Update()
@@ -232,15 +249,7 @@ public class HandJointTracker : MonoBehaviour
         if (IsGestureNe())
         {
             return "Ne"; // Replace with actual gesture name
-        }
-
-       // gesture "Tora"
-       
-         if (IsGestureTora())
-         {
-              return "Tora"; // Replace with actual gesture name
-         }
-       
+        }       
 
         
        // gesture "I"
@@ -256,6 +265,13 @@ public class HandJointTracker : MonoBehaviour
         {
                 return "Mi"; // Replace with actual gesture name
         }
+
+        // gesture "Tora"
+       
+         if (IsGestureTora())
+         {
+              return "Tora"; // Replace with actual gesture name
+         }
 
 /*
         // gesture "Uma"
@@ -313,6 +329,32 @@ public class HandJointTracker : MonoBehaviour
             string gesture = GetGesture();
             if (gesture != "None")
             {
+                // pop the top element of the gesture array if the gesture is detected and the gesture is same as the current gesture's top element
+                for (int j = 0; j < ninjutsuGestures.Length; j++)
+                {
+                    if (gesture == ninjutsuGestures[j].current_gestures[0])
+                    {
+                        // remove the top element of the gesture array
+                        for (int k = 0; k < ninjutsuGestures[j].current_gestures.Length - 1; k++)
+                        {
+                            ninjutsuGestures[j].current_gestures[k] = ninjutsuGestures[j].current_gestures[k + 1];
+                        }
+                        ninjutsuGestures[j].current_gestures[ninjutsuGestures[j].current_gestures.Length - 1] = null;
+                        //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
+                    }
+                }
+
+                // check if the ninjutsu gesture is completed
+                for (int j = 0; j < ninjutsuGestures.Length; j++)
+                {
+                    if (ninjutsuGestures[j].gestures[0] == null)
+                    {
+                        // the ninjutsu gesture is completed
+                        Debug.Log($"~~~~~~~~~~~~Ninjutsu gesture completed: {ninjutsuGestures[j].name}");
+                        // reset the gesture array
+                        ninjutsuGestures[j].current_gestures = ninjutsuGestures[j].gestures;
+                    }
+                }
                 Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
             }
         }
