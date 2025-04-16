@@ -10,6 +10,33 @@ public class NinjutsuGesture
     public string atrribute; // Attribute of the ninjutsu
     public string[] gestures; // Array of gesture names
     public string[] current_gestures; // Array of current gesture names
+
+    // a function to implement the ninjutsu
+    public void ActivateNinjutsu()
+    {
+        // Implement the logic to activate the ninjutsu here
+        Debug.Log($"Activating Ninjutsu: {name} with attribute: {atrribute}");
+    }
+}
+
+public class GestureConfirmation
+{
+    // This class is used to confirm the gesture, which can reduce the false positive rate
+    public string last_gesture = "None"; // Last detected gesture
+    public int gesture_count = 0; // Count of the same gesture detected in a row
+
+    private int gesture_count_threshold = 70; // Threshold for gesture confirmation, which means the gesture is confirmed if the same gesture is detected 3 times in a row
+
+    public void Reset()
+    {
+        last_gesture = "None";
+        gesture_count = 0;
+    }
+
+    public bool IsConfirmed()
+    {
+        return gesture_count >= gesture_count_threshold;
+    }
 }
 
 public class HandJointTracker : MonoBehaviour
@@ -20,6 +47,8 @@ public class HandJointTracker : MonoBehaviour
     private Dictionary<XRHandJointID, Pose> rightHandJoints = new Dictionary<XRHandJointID, Pose>();
 
     private NinjutsuGesture[] ninjutsuGestures; // Array of Ninjutsu gestures
+
+    private GestureConfirmation gestureConfirmation; // Gesture confirmation object
 
     void Start()
     {
@@ -35,7 +64,9 @@ public class HandJointTracker : MonoBehaviour
             new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" } },
             new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" } },
         };
-        
+
+        // initialize the gesture confirmation object
+        gestureConfirmation = new GestureConfirmation();
     }
 
     void Update()
@@ -159,10 +190,10 @@ public class HandJointTracker : MonoBehaviour
             // get rotation x of left and right Palm joint
             Quaternion leftPalmRotation = leftPalm.rotation;
             Quaternion rightPalmRotation = rightPalm.rotation;
-            // Debug.Log($"Distance between left and right IndexTip: {distance_indextip}");
-            //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((leftPalmRotation.eulerAngles.x > 50f && leftPalmRotation.eulerAngles.x < 65f) &&
-                (rightPalmRotation.eulerAngles.x > 50f && rightPalmRotation.eulerAngles.x < 65f) &&
+            //Debug.Log($"Distance between left and right palm: {distance_palm}");
+            //Debug.Log($"Left Palm Rotation: {leftPalmRotation.eulerAngles.x}, Right Palm Rotation: {rightPalmRotation.eulerAngles.x}");
+            if ((leftPalmRotation.eulerAngles.x > 30f && leftPalmRotation.eulerAngles.x < 50f) &&
+                (rightPalmRotation.eulerAngles.x > 30f && rightPalmRotation.eulerAngles.x < 50f) &&
                 (distance_palm > 0f && distance_palm < 0.07f)
                 
             )
@@ -188,11 +219,11 @@ public class HandJointTracker : MonoBehaviour
             float distance_indextip = rightIndexProximal.position.y - rightIndexTip.position.y;
             float distance_indextip_z = rightIndexProximal.position.z - rightIndexTip.position.z;
             //Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.01f && distance_indextip < 0.03f) ? "true" : "false")}");
-            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.06f && distance_indexdistal < 0.085f) ? "true" : "false")}");
-            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.01f && distance_indextip_z < 0f) ? "true" : "false")}");
-            if ((distance_indexdistal > 0.06f && distance_indexdistal < 0.085f) &&
+            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.06f && distance_indexdistal < 0.09f) ? "true" : "false")}");
+            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.035f && distance_indextip_z < 0f) ? "true" : "false")}");
+            if ((distance_indexdistal > 0.06f && distance_indexdistal < 0.09f) &&
                 (distance_indextip > 0.01f && distance_indextip < 0.03f) &&
-                (distance_indextip_z > -0.01f && distance_indextip_z < 0f)
+                (distance_indextip_z > -0.035f && distance_indextip_z < 0f)
                 
             )
             {
@@ -243,14 +274,7 @@ public class HandJointTracker : MonoBehaviour
          if (IsGestureSaru())
          {
                 return "Saru"; // Replace with actual gesture name
-         }
-
-        // gesture Ne 
-        if (IsGestureNe())
-        {
-            return "Ne"; // Replace with actual gesture name
-        }       
-
+         }    
         
        // gesture "I"
         if (IsGestureI())
@@ -258,7 +282,6 @@ public class HandJointTracker : MonoBehaviour
                 return "I"; // Replace with actual gesture name
         }
        
-
 
         // gesture "Mi"
        if (IsGestureMi())
@@ -272,6 +295,12 @@ public class HandJointTracker : MonoBehaviour
          {
               return "Tora"; // Replace with actual gesture name
          }
+
+         // gesture Ne 
+        if (IsGestureNe())
+        {
+            return "Ne"; // Replace with actual gesture name
+        } 
 
 /*
         // gesture "Uma"
@@ -327,8 +356,30 @@ public class HandJointTracker : MonoBehaviour
             }
             // Debug.Log($"{hand.handedness} {jointID}: {pose.position}");
             string gesture = GetGesture();
-            if (gesture != "None") 
+            if (gesture != "None")
             {
+                // check if the gesture is the same as the last gesture
+                if (gesture == gestureConfirmation.last_gesture)
+                {
+                    gestureConfirmation.gesture_count++;
+                }
+                else
+                {
+                    gestureConfirmation.gesture_count = 1;
+                    gestureConfirmation.last_gesture = gesture;
+                }
+            }
+            else
+            {
+                gestureConfirmation.gesture_count = 0;
+            }
+            if (gestureConfirmation.IsConfirmed())
+            {
+                // gesture is confirmed
+                //Debug.Log($"~~~~~~~~~~~~Gesture confirmed: {gesture}");
+                // reset the gesture confirmation object
+                gestureConfirmation.Reset();
+
                 // pop the top element of the gesture array if the gesture is detected and the gesture is same as the current gesture's top element
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
                 {
@@ -339,18 +390,25 @@ public class HandJointTracker : MonoBehaviour
                         {
                             ninjutsuGestures[j].current_gestures[k] = ninjutsuGestures[j].current_gestures[k + 1];
                         }
-                        ninjutsuGestures[j].current_gestures[ninjutsuGestures[j].current_gestures.Length - 1] = null;
+                        ninjutsuGestures[j].current_gestures[ninjutsuGestures[j].current_gestures.Length - 1] = "None";
                         //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
                     }
+                }
+
+                // print the current gesture array
+                for (int j = 0; j < ninjutsuGestures.Length; j++)
+                {
+                    string current_gestures = string.Join(", ", ninjutsuGestures[j].current_gestures);
+                    //Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
                 }
 
                 // check if the ninjutsu gesture is completed
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
                 {
-                    if (ninjutsuGestures[j].gestures[0] == null)
+                    if (ninjutsuGestures[j].current_gestures[0] == "None")
                     {
                         // the ninjutsu gesture is completed
-                        Debug.Log($"~~~~~~~~~~~~Ninjutsu gesture completed: {ninjutsuGestures[j].name}");
+                        ninjutsuGestures[j].ActivateNinjutsu();
                         // reset the gesture array
                         ninjutsuGestures[j].current_gestures = ninjutsuGestures[j].gestures;
                     }
