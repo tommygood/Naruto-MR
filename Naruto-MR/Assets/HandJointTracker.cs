@@ -11,10 +11,20 @@ public class NinjutsuGesture
     public string[] gestures; // Array of gesture names
     public string[] current_gestures; // Array of current gesture names
 
+    public GameObject ninjutusu_particle; // Particle system for the ninjutsu
+
     // a function to implement the ninjutsu
     public void ActivateNinjutsu()
     {
         // Implement the logic to activate the ninjutsu here
+        // set a gameobject which have a tag same as the ninjutsu name to active
+        if (ninjutusu_particle != null)
+        {
+            ninjutusu_particle.SetActive(true);
+        }
+        else {
+            Debug.LogError($"Ninjutsu particle for {name} is not set.");
+        }
         Debug.Log($"Activating Ninjutsu: {name} with attribute: {atrribute}");
     }
 }
@@ -52,6 +62,7 @@ public class HandJointTracker : MonoBehaviour
 
     void Start()
     {
+
         var subsystems = new List<XRHandSubsystem>();
         SubsystemManager.GetSubsystems(subsystems);
         if (subsystems.Count > 0)
@@ -64,9 +75,40 @@ public class HandJointTracker : MonoBehaviour
             new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" } },
             new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" } },
         };
+        // set the particle system for the ninjutsu gesture
+        SetNinjutsuParticle();
 
         // initialize the gesture confirmation object
         gestureConfirmation = new GestureConfirmation();
+    }
+
+    void SetNinjutsuParticle()
+    {
+        // Set the particle system for the ninjutsu
+        // store a list of name of the ninjutsu gesture in a list
+        List<string> ninjutsuNames = new List<string>();
+        foreach (NinjutsuGesture ninjutsu in ninjutsuGestures)
+        {
+            ninjutsuNames.Add(ninjutsu.name);
+        }
+        // set the particle system for each ninjutsu gesture
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            // check if the object has a tag which is in the ninjutsuNames list
+            if (ninjutsuNames.Contains(obj.tag))
+            {
+                // set the particle system for the ninjutsu gesture
+                foreach (NinjutsuGesture ninjutsu in ninjutsuGestures)
+                {
+                    if (obj.tag == ninjutsu.name)
+                    {
+                        ninjutsu.ninjutusu_particle = obj;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     void Update()
@@ -282,7 +324,6 @@ public class HandJointTracker : MonoBehaviour
                 return "I"; // Replace with actual gesture name
         }
        
-
         // gesture "Mi"
        if (IsGestureMi())
         {
