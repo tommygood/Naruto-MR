@@ -3,6 +3,8 @@ using UnityEngine.XR.Hands;
 using System.Collections.Generic;
 using UnityEngine.XR.Management;
 using UnityEngine.SubsystemsImplementation;
+using UnityEngine.UI;
+using TMPro;
 
 public class NinjutsuGesture
 {
@@ -370,6 +372,79 @@ public class HandJointTracker : MonoBehaviour
         return "None";
     }
 
+    private TextMeshProUGUI textMesh; // TextMeshPro component for displaying the gesture name
+    public float fadeDuration = 1.0f;
+    public float visibleDuration = 1.5f;
+
+
+    void FadeInAndOut(string gestureName)
+    {
+        // Implement the logic to fade in and out a word that is the same as the gesture name
+        // You can use Unity's UI system to display the word and animate its alpha value
+        // For example, you can use a Canvas with a Text component and animate its color
+        
+        // find the word object in the scene by tag
+        GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
+
+        // find the LeftHandAnchor object in the scene by tag
+        GameObject leftHandAnchor = GameObject.FindGameObjectWithTag("LeftHandAnchor");
+
+        // make the gestureWord object a child of the leftHandAnchor object
+        if (gestureWord != null && leftHandAnchor != null)
+        {
+            gestureWord.transform.SetParent(leftHandAnchor.transform);
+            // set position to (0, 0, 38.5)
+            gestureWord.transform.localPosition = new Vector3(0, 0, 38.5f); // Set the position to the anchor's position
+            gestureWord.transform.localRotation = Quaternion.identity; // Set the rotation to the anchor's rotation
+            
+            //gestureWord.transform.SetParent(null, true);
+            // set the rotation to 0, 0, 0
+            gestureWord.transform.localRotation = Quaternion.Euler(0, 0, 0); // Set the rotation to the anchor's rotation
+            // add 50 to the x position of the gestureWord object
+            //gestureWord.transform.position += new Vector3(80f, 20f, 30f); // Set the position to the anchor's position
+
+            Debug.Log($"Fading in and out: {gestureName}, position: {gestureWord.transform.position}, rotation: {gestureWord.transform.rotation}");
+
+            textMesh = gestureWord.GetComponentInChildren<TextMeshProUGUI>();
+            if (textMesh == null)
+            {
+                Debug.LogError("TextMeshPro component not found on the gesture word object!");
+                return;
+            }
+            textMesh.text = gestureName; // Set the text to the gesture name
+            StartCoroutine(FadeRoutine());
+        }
+        else
+        {
+            Debug.LogError("Gesture word or left hand anchor not found!");
+        }
+    }
+
+    private System.Collections.IEnumerator FadeRoutine()
+    {
+        Color originalColor = textMesh.color;
+
+        // Fade In
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, normalizedTime);
+            yield return null;
+        }
+        textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        yield return new WaitForSeconds(visibleDuration);
+
+        // Fade Out
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f - normalizedTime);
+            yield return null;
+        }
+        textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+    }
+
     void PrintJoints(XRHand hand)
     {
         // 26 is the total number of valid joints in Unity's XRHandJointID enum (0 to 25)
@@ -430,6 +505,10 @@ public class HandJointTracker : MonoBehaviour
             if (gestureConfirmation.IsConfirmed())
             {
                 // gesture is confirmed
+                
+                // fade in and out a word that is the same as the gesture name
+                FadeInAndOut(gesture);
+
                 //Debug.Log($"~~~~~~~~~~~~Gesture confirmed: {gesture}");
                 // reset the gesture confirmation object
                 gestureConfirmation.Reset();
