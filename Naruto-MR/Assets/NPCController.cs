@@ -4,12 +4,20 @@ using Unity.AI.Navigation;
 
 public class NPCController : MonoBehaviour
 {
+
+    enum NinJutsu {
+
+    }
+
     public Transform player;
     public NavMeshSurface surface;
     public float attackDistance;
 
     private NavMeshAgent agent;
     private Animator animator;
+
+    NinJutsu[] ninJutsuList = {}; 
+    public int currentNinJutsu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
