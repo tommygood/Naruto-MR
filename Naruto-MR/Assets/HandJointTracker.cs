@@ -13,6 +13,8 @@ public class NinjutsuGesture
 
     public GameObject ninjutusu_particle; // Particle system for the ninjutsu
 
+    public int chakra_cost = 10; // Chakra cost for the ninjutsu
+
     // a function to implement the ninjutsu
     public void ActivateNinjutsu()
     {
@@ -60,6 +62,12 @@ public class HandJointTracker : MonoBehaviour
 
     private GestureConfirmation gestureConfirmation; // Gesture confirmation object
 
+    public int chakra = 100; // Chakra stats
+
+    public int ninjutsu_timeout = 5; // Ninjutsu timeout in seconds
+
+    private float ninjutsu_timeout_count = 0; // Ninjutsu timeout count
+
     void Start()
     {
 
@@ -72,8 +80,8 @@ public class HandJointTracker : MonoBehaviour
         // initialize the ninjutsu gesture
         ninjutsuGestures = new NinjutsuGesture[]
         {
-            new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" } },
-            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" } },
+            new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" }, chakra_cost = 20 },
+            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
         };
         // set the particle system for the ninjutsu gesture
         SetNinjutsuParticle();
@@ -113,7 +121,12 @@ public class HandJointTracker : MonoBehaviour
 
     void Update()
     {
-        if (handSubsystem == null || !handSubsystem.running)
+        if (ninjutsu_timeout_count > 0)
+        {
+            ninjutsu_timeout_count -= Time.deltaTime;
+        }
+
+        if (handSubsystem == null || !handSubsystem.running || ninjutsu_timeout_count > 0)
             return;
 
         var leftHand = handSubsystem.leftHand;
@@ -443,6 +456,7 @@ public class HandJointTracker : MonoBehaviour
                     //Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
                 }
 
+                bool resetGesture = false;
                 // check if the ninjutsu gesture is completed
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
                 {
@@ -451,10 +465,23 @@ public class HandJointTracker : MonoBehaviour
                         // the ninjutsu gesture is completed
                         ninjutsuGestures[j].ActivateNinjutsu();
                         // reset the gesture array
+                        resetGesture = true;
+                        // set the ninjutsu timeout count
+                        ninjutsu_timeout_count = ninjutsu_timeout;
+                        // set the chakra cost
+                        chakra -= ninjutsuGestures[j].chakra_cost;
+                    }
+                }
+                // if the gesture is completed, reset the gesture array
+                if (resetGesture)
+                {
+                    // reset the gesture array
+                    for (int j = 0; j < ninjutsuGestures.Length; j++)
+                    {
                         ninjutsuGestures[j].current_gestures = ninjutsuGestures[j].gestures;
                     }
                 }
-                Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
+                //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
             }
         }
     }
