@@ -39,7 +39,7 @@ public class GestureConfirmation
     public string last_gesture = "None"; // Last detected gesture
     public int gesture_count = 0; // Count of the same gesture detected in a row
 
-    private int gesture_count_threshold = 50; // Threshold for gesture confirmation, which means the gesture is confirmed if the same gesture is detected 3 times in a row
+    private int gesture_count_threshold = 70; // Threshold for gesture confirmation, which means the gesture is confirmed if the same gesture is detected 3 times in a row
 
     public void Reset()
     {
@@ -247,10 +247,10 @@ public class HandJointTracker : MonoBehaviour
             // get rotation x of left and right Palm joint
             Quaternion leftPalmRotation = leftPalm.rotation;
             Quaternion rightPalmRotation = rightPalm.rotation;
-            //Debug.Log($"Distance between left and right palm: {distance_palm}");
             //Debug.Log($"Left Palm Rotation: {leftPalmRotation.eulerAngles.x}, Right Palm Rotation: {rightPalmRotation.eulerAngles.x}");
-            if ((leftPalmRotation.eulerAngles.x > 30f && leftPalmRotation.eulerAngles.x < 50f) &&
-                (rightPalmRotation.eulerAngles.x > 30f && rightPalmRotation.eulerAngles.x < 50f) &&
+            //Debug.Log($"Distance between left and right palm: {distance_palm}");
+            if ((leftPalmRotation.eulerAngles.x > 30f && leftPalmRotation.eulerAngles.x < 80f) &&
+                (rightPalmRotation.eulerAngles.x > 30f && rightPalmRotation.eulerAngles.x < 80f) &&
                 (distance_palm > 0f && distance_palm < 0.07f)
                 
             )
@@ -275,12 +275,12 @@ public class HandJointTracker : MonoBehaviour
             float distance_indexdistal = leftIndexDistal.position.x - rightIndexDistal.position.x;
             float distance_indextip = rightIndexProximal.position.y - rightIndexTip.position.y;
             float distance_indextip_z = rightIndexProximal.position.z - rightIndexTip.position.z;
-            //Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.01f && distance_indextip < 0.03f) ? "true" : "false")}");
-            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.06f && distance_indexdistal < 0.09f) ? "true" : "false")}");
-            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.035f && distance_indextip_z < 0f) ? "true" : "false")}");
-            if ((distance_indexdistal > 0.06f && distance_indexdistal < 0.09f) &&
-                (distance_indextip > 0.01f && distance_indextip < 0.03f) &&
-                (distance_indextip_z > -0.035f && distance_indextip_z < 0f)
+            Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.0001f && distance_indextip < 0.04f) ? "true" : "false")}");
+            Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) ? "true" : "false")}");
+            Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.07f && distance_indextip_z < 0f) ? "true" : "false")}");
+            if ((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) &&
+                (distance_indextip > 0.0001f && distance_indextip < 0.04f) &&
+                (distance_indextip_z > -0.07f && distance_indextip_z < 0f)
                 
             )
             {
@@ -338,6 +338,12 @@ public class HandJointTracker : MonoBehaviour
         {
                 return "I"; // Replace with actual gesture name
         }
+
+         // gesture Ne 
+        if (IsGestureNe())
+        {
+            return "Ne"; // Replace with actual gesture name
+        } 
        
         // gesture "Mi"
        if (IsGestureMi())
@@ -351,12 +357,6 @@ public class HandJointTracker : MonoBehaviour
          {
               return "Tora"; // Replace with actual gesture name
          }
-
-         // gesture Ne 
-        if (IsGestureNe())
-        {
-            return "Ne"; // Replace with actual gesture name
-        } 
 
 /*
         // gesture "Uma"
@@ -382,10 +382,7 @@ public class HandJointTracker : MonoBehaviour
     {
         if (fade_in_lock) yield break; // Prevent multiple coroutines from running at the same time
         fade_in_lock = true; // Lock the coroutine
-        // Implement the logic to fade in and out a word that is the same as the gesture name
-        // You can use Unity's UI system to display the word and animate its alpha value
-        // For example, you can use a Canvas with a Text component and animate its color
-        
+
         // find the word object in the scene by tag
         GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
 
@@ -400,18 +397,8 @@ public class HandJointTracker : MonoBehaviour
             gestureWord.transform.localPosition = new Vector3(40f, 30f, 38.5f); // Set the position to the anchor's position
             gestureWord.transform.localRotation = Quaternion.identity; // Set the rotation to the anchor's rotation
             
-            //gestureWord.transform.SetParent(null, true);
-            // set the parent to null after 0.01s 
-            //yield return new WaitForSeconds(0.1f);
-            //gestureWord.transform.SetParent(null, true);
-            
             // set the rotation to 0, 0, 0
             gestureWord.transform.localRotation = Quaternion.Euler(0, 0, 0); // Set the rotation to the anchor's rotation
-            // add 50 to the x position of the gestureWord object
-            //gestureWord.transform.position += new Vector3(80f, 20f, 30f); // Set the position to the anchor's position
-            //gestureWord.transform.position += new Vector3(10f, 0f, 0f); // Set the position to the anchor's position
-
-            //Debug.Log($"Fading in and out: {gestureName}, position: {gestureWord.transform.position}, rotation: {gestureWord.transform.rotation}");
 
             textMesh = gestureWord.GetComponentInChildren<TextMeshProUGUI>();
             if (textMesh == null)
