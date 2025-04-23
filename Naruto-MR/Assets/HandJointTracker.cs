@@ -389,21 +389,21 @@ public class HandJointTracker : MonoBehaviour
         // find the word object in the scene by tag
         GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
 
-        // find the LeftHandAnchor object in the scene by tag
-        GameObject leftHandAnchor = GameObject.FindGameObjectWithTag("LeftHandAnchor");
+        // find the MainCamera object in the scene by tag
+        GameObject MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        // make the gestureWord object a child of the leftHandAnchor object
-        if (gestureWord != null && leftHandAnchor != null)
+        // make the gestureWord object a child of the MainCamera object
+        if (gestureWord != null && MainCamera != null)
         {
-            gestureWord.transform.SetParent(leftHandAnchor.transform);
+            gestureWord.transform.SetParent(MainCamera.transform);
             // set position to (0, 0, 38.5)
-            gestureWord.transform.localPosition = new Vector3(0, 0, 38.5f); // Set the position to the anchor's position
+            gestureWord.transform.localPosition = new Vector3(40f, 30f, 38.5f); // Set the position to the anchor's position
             gestureWord.transform.localRotation = Quaternion.identity; // Set the rotation to the anchor's rotation
             
             //gestureWord.transform.SetParent(null, true);
             // set the parent to null after 0.01s 
-            yield return new WaitForSeconds(0.1f);
-            gestureWord.transform.SetParent(null, true);
+            //yield return new WaitForSeconds(0.1f);
+            //gestureWord.transform.SetParent(null, true);
             
             // set the rotation to 0, 0, 0
             gestureWord.transform.localRotation = Quaternion.Euler(0, 0, 0); // Set the rotation to the anchor's rotation
