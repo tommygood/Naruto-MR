@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f0540b20-dfd6-420e-b20d-c270f88dc77e
-  instanceId: 162a6d9e-cf00-48f8-9b30-c5b9a418dbba
+  instanceId: f303b6e2-f62b-46fd-9ae4-502c2ee0e433
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1908,8 +1908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chakra: 100
   ninjutsu_timeout: 5
-  fadeDuration: 1
-  visibleDuration: 1.5
+  fadeDuration: 0.5
+  visibleDuration: 0.5
 --- !u!4 &734883134
 Transform:
   m_ObjectHideFlags: 0
@@ -2274,7 +2274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: b1253a05-6483-4698-a04f-b7d240cda155
+  instanceId: 60ff9d5c-6d8a-45fd-ae11-8623e18b64b6
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -2957,7 +2957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: eb76026e-9396-44bd-beca-3b6515b38ff2
+  instanceId: 309915fb-6e13-42fc-9d22-770a2f32aa59
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -5671,8 +5671,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 16713935
+  m_fontColor: {r: 0.81200194, g: 0.033018887, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5689,8 +5689,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7272,7 +7272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 8b26b298-7bf4-490e-b245-a039c0184303
-  instanceId: 99f9b845-6507-494c-9e8d-e533bb3afada
+  instanceId: b816655a-518e-4e38-a297-c6fe38494705
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 

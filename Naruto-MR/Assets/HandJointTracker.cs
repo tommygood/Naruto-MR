@@ -39,7 +39,7 @@ public class GestureConfirmation
     public string last_gesture = "None"; // Last detected gesture
     public int gesture_count = 0; // Count of the same gesture detected in a row
 
-    private int gesture_count_threshold = 70; // Threshold for gesture confirmation, which means the gesture is confirmed if the same gesture is detected 3 times in a row
+    private int gesture_count_threshold = 50; // Threshold for gesture confirmation, which means the gesture is confirmed if the same gesture is detected 3 times in a row
 
     public void Reset()
     {
@@ -373,12 +373,15 @@ public class HandJointTracker : MonoBehaviour
     }
 
     private TextMeshProUGUI textMesh; // TextMeshPro component for displaying the gesture name
-    public float fadeDuration = 1.0f;
-    public float visibleDuration = 1.5f;
+    public float fadeDuration = 0.5f;
+    public float visibleDuration = 0.5f;
+    private bool fade_in_lock = false; // Lock for fade in and out
 
 
-    void FadeInAndOut(string gestureName)
+    System.Collections.IEnumerator FadeInAndOut(string gestureName)
     {
+        if (fade_in_lock) yield break; // Prevent multiple coroutines from running at the same time
+        fade_in_lock = true; // Lock the coroutine
         // Implement the logic to fade in and out a word that is the same as the gesture name
         // You can use Unity's UI system to display the word and animate its alpha value
         // For example, you can use a Canvas with a Text component and animate its color
@@ -398,21 +401,27 @@ public class HandJointTracker : MonoBehaviour
             gestureWord.transform.localRotation = Quaternion.identity; // Set the rotation to the anchor's rotation
             
             //gestureWord.transform.SetParent(null, true);
+            // set the parent to null after 0.01s 
+            yield return new WaitForSeconds(0.1f);
+            gestureWord.transform.SetParent(null, true);
+            
             // set the rotation to 0, 0, 0
             gestureWord.transform.localRotation = Quaternion.Euler(0, 0, 0); // Set the rotation to the anchor's rotation
             // add 50 to the x position of the gestureWord object
             //gestureWord.transform.position += new Vector3(80f, 20f, 30f); // Set the position to the anchor's position
+            //gestureWord.transform.position += new Vector3(10f, 0f, 0f); // Set the position to the anchor's position
 
-            Debug.Log($"Fading in and out: {gestureName}, position: {gestureWord.transform.position}, rotation: {gestureWord.transform.rotation}");
+            //Debug.Log($"Fading in and out: {gestureName}, position: {gestureWord.transform.position}, rotation: {gestureWord.transform.rotation}");
 
             textMesh = gestureWord.GetComponentInChildren<TextMeshProUGUI>();
             if (textMesh == null)
             {
                 Debug.LogError("TextMeshPro component not found on the gesture word object!");
-                return;
             }
-            textMesh.text = gestureName; // Set the text to the gesture name
-            StartCoroutine(FadeRoutine());
+            else {
+                textMesh.text = gestureName; // Set the text to the gesture name
+                StartCoroutine(FadeRoutine());
+            }
         }
         else
         {
@@ -443,6 +452,7 @@ public class HandJointTracker : MonoBehaviour
             yield return null;
         }
         textMesh.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        fade_in_lock = false; // Unlock the coroutine
     }
 
     void PrintJoints(XRHand hand)
@@ -507,7 +517,9 @@ public class HandJointTracker : MonoBehaviour
                 // gesture is confirmed
                 
                 // fade in and out a word that is the same as the gesture name
-                FadeInAndOut(gesture);
+                //FadeInAndOut(gesture);
+                StartCoroutine(FadeInAndOut(gesture));
+
 
                 //Debug.Log($"~~~~~~~~~~~~Gesture confirmed: {gesture}");
                 // reset the gesture confirmation object
