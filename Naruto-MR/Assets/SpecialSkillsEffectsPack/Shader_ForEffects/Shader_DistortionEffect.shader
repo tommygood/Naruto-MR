@@ -8,10 +8,7 @@
 	}
 
 	SubShader{
-		GrabPass{
-			"_GrabTexture"
-			}
-
+		
 			Tags{ "Queue" = "Transparent"  "IgnoreProjector" = "True"  "RenderType" = "Transparent" }
 			Blend SrcAlpha OneMinusSrcAlpha
 			Cull Off
