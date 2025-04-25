@@ -39,7 +39,7 @@ public class NPCController : MonoBehaviour
         {
             Debug.LogError("NavMeshSurface is missing!");
         }
-        surface.BuildNavMesh();
+        // surface.BuildNavMesh();
     }
 
     // Update is called once per frame
