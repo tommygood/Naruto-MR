@@ -7,11 +7,11 @@ public class MRUKManager : MonoBehaviour
 {
     public MRUK mruk;
     public OVRInput.Controller controller;
-    public GameObject objectForWallAnchorsPrefab;
 
     private bool sceneHasBeenLoaded;
-    private MRUKRoom currentRoom;
-    private List<GameObject> wallAnchorObjectsCreated = new();
+    public MRUKRoom currentRoom;
+
+    public List<GameObject> anchorObjectsCreated = new();
 
     private bool SceneAndRoomInfoAvailable => currentRoom != null && sceneHasBeenLoaded;
 
@@ -24,31 +24,29 @@ public class MRUKManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Press the right trigger to create or destroy anchor objects showing the anchor index
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) && SceneAndRoomInfoAvailable)
         {
-            if (wallAnchorObjectsCreated.Count == 0)
+            if (anchorObjectsCreated.Count == 0)
             {
                 int i = 0;
-                foreach (var wallAnchor in currentRoom.WallAnchors)
+                foreach (var anchor in currentRoom.Anchors)
                 {
-                    var createdWallObject = Instantiate(objectForWallAnchorsPrefab, Vector3.zero, Quaternion.identity, wallAnchor.transform);
-                    createdWallObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                    createdWallObject.AddComponent<TextMeshPro>();
-                    createdWallObject.GetComponent<TextMeshPro>().text = i.ToString();
-                    wallAnchorObjectsCreated.Add(createdWallObject);
-                    Debug.Log($"{nameof(MRUKManager)} wall object created with Uuid: {wallAnchor.Anchor.Uuid}");
+                    var gameObject = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity, anchor.transform);
+                    gameObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    gameObject.transform.localScale = Vector3.one * 0.1f;
+                    gameObject.AddComponent<TextMeshPro>();
+                    gameObject.GetComponent<TextMeshPro>().text = i.ToString();
+                    anchorObjectsCreated.Add(gameObject);
                     i++;
                 }
-                Debug.Log($"{nameof(MRUKManager)} wall objects added to all walls");
-            }
-            else
+            } else
             {
-                foreach (var wallObject in wallAnchorObjectsCreated)
+                foreach (var anchorObject in anchorObjectsCreated)
                 {
-                    Destroy(wallObject);
+                    Destroy(anchorObject);
                 }
-                wallAnchorObjectsCreated.Clear();
-                Debug.Log($"{nameof(MRUKManager)} wall objects were deleted");
+                anchorObjectsCreated.Clear();
             }
         }
     }
