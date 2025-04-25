@@ -7,6 +7,26 @@ using UnityEngine.UI;
 using TMPro;
 using EffectNamespace; // Assuming EffectNamespace is the namespace for Effect and EffectSetting classes
 
+public class AudioManager {
+    public void enableAudio(string name)
+    {
+        // find the object by the tag name
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            // check if the object has a tag which is in the ninjutsuNames list
+            if (obj.tag == name)
+            {
+                obj.SetActive(false);
+                obj.SetActive(true);
+                return;
+            }
+        }
+        //Debug.LogError($"Audio object with tag {name} not found!");
+        // FIXME: add a warning log if the object is not found
+    }
+}
+
 public class NinjutsuGesture
 {
     public string name; // Name of the ninjutsu
@@ -32,6 +52,9 @@ public class NinjutsuGesture
         {
             
             effect.SpawnEffect(ninjutusu_particle);
+            AudioManager audioManager = new AudioManager();
+            // enable with name of the Audio-<ninjutsu_name>
+            audioManager.enableAudio($"Audio-{name}");
         }
         else {
             Debug.LogError($"Ninjutsu particle for {name} is not set.");
@@ -255,7 +278,6 @@ public class HandJointTracker : MonoBehaviour
                 // print the rotation of left and right Palm joint
                 
                 float angle = leftPalmRotation.eulerAngles.x + rightPalmRotation.eulerAngles.x;
-                Debug.Log($"Signed distance: {signedDistance}. Signed distance2: {signedDistance2}. Angle: {angle}");
                 if (angle > 343 && angle < 355f)
                 {
                     return true; // Replace with actual gesture name Left Palm Rotation: (355.83, 35.95, 96.82) Right Palm Rotation: (352.50, 215.55, 76.88)
@@ -431,6 +453,9 @@ public class HandJointTracker : MonoBehaviour
     {
         if (fade_in_lock) yield break; // Prevent multiple coroutines from running at the same time
         fade_in_lock = true; // Lock the coroutine
+
+        AudioManager audioManager = new AudioManager();
+        audioManager.enableAudio("Audio-gesture");
 
         // find the word object in the scene by tag
         GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
