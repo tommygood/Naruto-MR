@@ -7,6 +7,8 @@ TagManager:
   - fireball
   - LeftHandAnchor
   - GestureWord
+  - Audio-gesture
+  - Audio-fireball
   layers:
   - Default
   - TransparentFX
