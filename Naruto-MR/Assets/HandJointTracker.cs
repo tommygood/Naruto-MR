@@ -70,8 +70,21 @@ public class HandJointTracker : MonoBehaviour
 
     private float ninjutsu_timeout_count = 0; // Ninjutsu timeout count
 
+    // find the MainCamera object in the scene by tag
+    private GameObject MainCamera;
+
     void Start()
     {
+        MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        // print the name of the MainCamera object
+        if (MainCamera != null)
+        {
+            Debug.Log($"MainCamera object found: {MainCamera.name}");
+        }
+        else
+        {
+            Debug.LogError("MainCamera object not found!");
+        }
 
         var subsystems = new List<XRHandSubsystem>();
         SubsystemManager.GetSubsystems(subsystems);
@@ -210,14 +223,20 @@ public class HandJointTracker : MonoBehaviour
            )
        {
             float distance_middletip = leftMiddleTip.position.x - rightMiddleTip.position.x;
+            Vector3 rightDirection = MainCamera.transform.right.normalized;
+            Vector3 diff = leftMiddleTip.position - rightMiddleTip.position;
+            float signedDistance = Vector3.Dot(diff, rightDirection);
             float distance_indextip = leftLittleIntermediate.position.y - rightIndexIntermediate.position.y;
+            Vector3 upDirection = MainCamera.transform.up.normalized;
+            Vector3 diff2 = leftLittleIntermediate.position - rightIndexIntermediate.position;
+            float signedDistance2 = Vector3.Dot(diff2, upDirection);
             
             //Debug.Log($"QQ Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > -0.09f && distance_indextip < 0f) ? "true" : "false")}");
             //Debug.Log($"QQ Distance between left and right MiddleTip: {distance_middletip}, {((distance_middletip > -0.17f && distance_middletip < -0.15f) ? "true" : "false")}");
             // print the condition is matched or not
             //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_middletip > 0.07f && distance_middletip < 0.1f) &&
-                (distance_indextip > -0.09f && distance_indextip < 0f) 
+            if ((signedDistance < 0.15f && signedDistance > 0.1f) &&
+                (signedDistance2 > -0.09f && signedDistance2 < 0f) 
             )
             {
                 Quaternion leftPalmRotation = leftPalm.rotation;
@@ -225,6 +244,7 @@ public class HandJointTracker : MonoBehaviour
                 // print the rotation of left and right Palm joint
                 
                 float angle = leftPalmRotation.eulerAngles.x + rightPalmRotation.eulerAngles.x;
+                Debug.Log($"Signed distance: {signedDistance}. Signed distance2: {signedDistance2}. Angle: {angle}");
                 if (angle > 343 && angle < 355f)
                 {
                     return true; // Replace with actual gesture name Left Palm Rotation: (355.83, 35.95, 96.82) Right Palm Rotation: (352.50, 215.55, 76.88)
@@ -269,22 +289,40 @@ public class HandJointTracker : MonoBehaviour
        if (leftHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose leftIndexDistal) &&
             rightHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose rightIndexDistal) &&
             rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightIndexTip) &&
-            rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightIndexProximal)
+            rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightIndexProximal) &&
+            leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPalm) &&
+           rightHandJoints.TryGetValue(XRHandJointID.Palm, out Pose rightPalm)
            )
        {
             float distance_indexdistal = leftIndexDistal.position.x - rightIndexDistal.position.x;
             float distance_indextip = rightIndexProximal.position.y - rightIndexTip.position.y;
             float distance_indextip_z = rightIndexProximal.position.z - rightIndexTip.position.z;
-            Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.0001f && distance_indextip < 0.04f) ? "true" : "false")}");
-            Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) ? "true" : "false")}");
-            Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.07f && distance_indextip_z < 0f) ? "true" : "false")}");
-            if ((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) &&
-                (distance_indextip > 0.0001f && distance_indextip < 0.04f) &&
-                (distance_indextip_z > -0.07f && distance_indextip_z < 0f)
-                
+            float left_palm_x = leftPalm.rotation.eulerAngles.x;
+            Vector3 rightDirection = MainCamera.transform.right.normalized;
+            Vector3 diff = leftIndexDistal.position - rightIndexDistal.position;
+            float signedDistance = Vector3.Dot(diff, rightDirection);
+            Vector3 upDirection = MainCamera.transform.up.normalized;
+
+            Vector3 diff2 = rightIndexProximal.position - rightIndexTip.position;
+            float signedDistance2 = Vector3.Dot(diff2, upDirection);
+            //Debug.Log($"Signed distance2: {signedDistance2}");
+            Vector3 forwardDirection = MainCamera.transform.forward.normalized;
+            Vector3 diff3 = rightIndexProximal.position - rightIndexTip.position;
+            float signedDistance3 = Vector3.Dot(diff3, forwardDirection);
+
+            //Debug.Log($"Signed distance: {signedDistance}. Signed distance2: {signedDistance2}. Signed distance3: {signedDistance3}");
+            //Debug.Log($"Left Palm X: {left_palm_x}");
+            //Debug.Log($"distance_indexdistal: {distance_indexdistal}, left indextip: {MainCamera.transform.InverseTransformPoint(leftIndexDistal.position).x}, right indextip: {MainCamera.transform.InverseTransformPoint(rightIndexDistal.position).x}");
+            //Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.0001f && distance_indextip < 0.04f) ? "true" : "false")}");
+            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) ? "true" : "false")}"); // -0.03
+            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.07f && distance_indextip_z < 0f) ? "true" : "false")}"); // 0.06
+            if ((signedDistance > 0.02f && signedDistance < 0.07f) &&
+                ((signedDistance2 > 0.0001f && signedDistance2 < 0.04f)) &&
+                ((signedDistance3 > -0.07f && signedDistance3 < 0f)) &&
+                (left_palm_x > 280f && left_palm_x < 320f) 
             )
             {
-               return true;
+                return true; // Replace with actual gesture name Left Palm Rotation: (355.83, 35.95, 96.82) Right Palm Rotation: (352.50, 215.55, 76.88)
             }
             
         }
@@ -385,9 +423,6 @@ public class HandJointTracker : MonoBehaviour
 
         // find the word object in the scene by tag
         GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
-
-        // find the MainCamera object in the scene by tag
-        GameObject MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         // make the gestureWord object a child of the MainCamera object
         if (gestureWord != null && MainCamera != null)
