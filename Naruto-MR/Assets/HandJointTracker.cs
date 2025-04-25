@@ -5,6 +5,7 @@ using UnityEngine.XR.Management;
 using UnityEngine.SubsystemsImplementation;
 using UnityEngine.UI;
 using TMPro;
+using EffectNamespace; // Assuming EffectNamespace is the namespace for Effect and EffectSetting classes
 
 public class NinjutsuGesture
 {
@@ -13,7 +14,7 @@ public class NinjutsuGesture
     public string[] gestures; // Array of gesture names
     public string[] current_gestures; // Array of current gesture names
 
-    public GameObject ninjutusu_particle; // Particle system for the ninjutsu
+    public EffectSetting ninjutusu_particle; // Particle system for the ninjutsu
 
     public int chakra_cost = 10; // Chakra cost for the ninjutsu
 
@@ -22,9 +23,15 @@ public class NinjutsuGesture
     {
         // Implement the logic to activate the ninjutsu here
         // set a gameobject which have a tag same as the ninjutsu name to active
+        // public EffectSetting fireEffect;
+        Effect effect = GameObject.FindFirstObjectByType<Effect>();
+
+        // find the object from effect class by the ninjutsu name
+        ninjutusu_particle = effect.GetType().GetField($"{atrribute}Effect").GetValue(effect) as EffectSetting;
         if (ninjutusu_particle != null)
         {
-            ninjutusu_particle.SetActive(true);
+            
+            effect.SpawnEffect(ninjutusu_particle);
         }
         else {
             Debug.LogError($"Ninjutsu particle for {name} is not set.");
@@ -96,15 +103,18 @@ public class HandJointTracker : MonoBehaviour
         ninjutsuGestures = new NinjutsuGesture[]
         {
             new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" }, chakra_cost = 20 },
-            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
+            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Ne", "Saru", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
+            new NinjutsuGesture { name = "thunderSlide", atrribute = "thunder", gestures = new string[] { "Saru", "Ne" }, current_gestures = new string[] { "Ne", "I" }, chakra_cost = 15 },
+            new NinjutsuGesture { name = "windSlam", atrribute = "wind", gestures = new string[] { "Mi", "I", "Ne" }, current_gestures = new string[] { "Uma", "I" }, chakra_cost = 10 },
         };
         // set the particle system for the ninjutsu gesture
-        SetNinjutsuParticle();
+        //SetNinjutsuParticle();
 
         // initialize the gesture confirmation object
         gestureConfirmation = new GestureConfirmation();
     }
 
+    /*
     void SetNinjutsuParticle()
     {
         // Set the particle system for the ninjutsu
@@ -133,6 +143,7 @@ public class HandJointTracker : MonoBehaviour
             }
         }
     }
+    */
 
     void Update()
     {
@@ -561,13 +572,15 @@ public class HandJointTracker : MonoBehaviour
                         //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
                     }
                 }
-
+             
+                /*
                 // print the current gesture array
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
                 {
                     string current_gestures = string.Join(", ", ninjutsuGestures[j].current_gestures);
-                    //Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
+                    Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
                 }
+                */
 
                 bool resetGesture = false;
                 // check if the ninjutsu gesture is completed
@@ -591,7 +604,8 @@ public class HandJointTracker : MonoBehaviour
                     // reset the gesture array
                     for (int j = 0; j < ninjutsuGestures.Length; j++)
                     {
-                        ninjutsuGestures[j].current_gestures = ninjutsuGestures[j].gestures;
+                        // copy by value, not by reference
+                        ninjutsuGestures[j].current_gestures = (string[])ninjutsuGestures[j].gestures.Clone();
                     }
                 }
                 //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
