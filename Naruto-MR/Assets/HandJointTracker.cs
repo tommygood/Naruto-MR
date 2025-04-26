@@ -103,6 +103,8 @@ public class HandJointTracker : MonoBehaviour
     // find the MainCamera object in the scene by tag
     private GameObject MainCamera;
 
+    Animator animator;
+
     void Start()
     {
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -135,6 +137,10 @@ public class HandJointTracker : MonoBehaviour
 
         // initialize the gesture confirmation object
         gestureConfirmation = new GestureConfirmation();
+
+        // set the animator
+        GameObject naruto = GameObject.FindGameObjectWithTag("naruto");
+        animator = naruto.GetComponent<Animator>();
     }
 
     /*
@@ -211,6 +217,7 @@ public class HandJointTracker : MonoBehaviour
                 
             )
             {
+                animator.SetBool("clapping", true);
                 return true; // Replace with actual gesture name
             }
        }

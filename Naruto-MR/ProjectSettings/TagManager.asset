@@ -9,6 +9,7 @@ TagManager:
   - GestureWord
   - Audio-gesture
   - Audio-fireball
+  - naruto
   layers:
   - Default
   - TransparentFX
