@@ -1,0 +1,11 @@
+Model Information:
+* title:	Target Dummy
+* source:	https://sketchfab.com/3d-models/target-dummy-76a5cc77701f4a9494c9381f2e4adecb
+* author:	WitchEye (https://sketchfab.com/WitchEye)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Target Dummy" (https://sketchfab.com/3d-models/target-dummy-76a5cc77701f4a9494c9381f2e4adecb) by WitchEye (https://sketchfab.com/WitchEye) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

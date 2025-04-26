@@ -6382,6 +6382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f476a00ef32294789a0b8efa86f1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chakra: 100
+  ninjutsu_timeout: 5
+  fadeDuration: 0.5
+  visibleDuration: 0.5
 --- !u!1 &1588805654
 GameObject:
   m_ObjectHideFlags: 0
@@ -7057,6 +7061,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -250
       objectReference: {fileID: 0}
+    - target: {fileID: 5339555222402884466, guid: 66d40221d132d04499855da9ce315f20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 6233418617357502829, guid: 66d40221d132d04499855da9ce315f20, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -7069,6 +7077,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7357195127728628889, guid: 66d40221d132d04499855da9ce315f20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 7423083323456312675, guid: 66d40221d132d04499855da9ce315f20, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
