@@ -19,6 +19,8 @@ public class NPCController : MonoBehaviour
     NinJutsu[] ninJutsuList = {}; 
     public int currentNinJutsu;
 
+    public MRUKManager mrukManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,4 +67,9 @@ public class NPCController : MonoBehaviour
     //        agent.speed = (animator.deltaPosition / Time.deltaTime).magnitude;
     //    }
     //}
+
+    private void MoveToStartPosition()
+    {
+        
+    }
 }
