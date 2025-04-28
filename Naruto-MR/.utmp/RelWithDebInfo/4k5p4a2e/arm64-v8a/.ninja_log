@@ -1,10 +1,19 @@
 # ninja log v5
+572	1750	7664225891405709	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	eb3d6f4d655fb7dd
 188	1228	7664225886147693	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	edaae773f1e9abd6
+676	1654	7664225890451283	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	fe658b2a156c3612
 1	1242	7664225886292553	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	d177790cfb642e98
 282	1274	7664225886634746	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	77bce89b2c0f806e
 473	1454	7664225888431859	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	baa1d116d1d2afd5
 95	1541	7664225889297376	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	c28770a7923848b1
 378	1620	7664225890086237	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6f35822f192f8174
-676	1654	7664225890451283	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	fe658b2a156c3612
-572	1750	7664225891405709	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	eb3d6f4d655fb7dd
 1751	2005	7664225893992077	C:/Users/NYCU-EC028/Naruto-MR/Naruto-MR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4k5p4a2e/obj/arm64-v8a/libgame.so	cdee7aa3e6b6cbb0
+90	1268	7675582850923327	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	77bce89b2c0f806e
+359	1295	7675582851189025	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	baa1d116d1d2afd5
+0	1312	7675582851373081	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	edaae773f1e9abd6
+264	1355	7675582851822825	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	d177790cfb642e98
+551	1454	7675582852802637	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	fe658b2a156c3612
+454	1557	7675582853838172	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	6f35822f192f8174
+177	1591	7675582854179223	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	c28770a7923848b1
+648	1677	7675582855027946	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	eb3d6f4d655fb7dd
+1677	1951	7675582857821944	C:/Users/NYCU-EC028/Naruto-MR/Naruto-MR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4k5p4a2e/obj/arm64-v8a/libgame.so	cdee7aa3e6b6cbb0
