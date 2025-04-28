@@ -14,6 +14,7 @@ TagManager:
   - S_1
   - N_3
   - table
+  - effect
   layers:
   - Default
   - TransparentFX

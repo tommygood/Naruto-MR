@@ -2,12 +2,28 @@ using UnityEngine;
 
 public class AnchorCollisionHandler : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.gameObject.name.Contains("effect"))
+        if (GetComponent<Rigidbody>() == null)
         {
-            Debug.Log($"{gameObject.name} was hit by {other.gameObject.name}, destroying this object.");
-            Destroy(gameObject);
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = true; // 不被物理影響，只負責碰撞事件
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {   
+     Debug.Log($"Trigger enter! I am {gameObject.name}, hit {other.gameObject.name}");
+       if (gameObject.activeSelf)
+{
+    Debug.Log($"Destroying {gameObject.name}");
+    Destroy(gameObject);
+}
+else
+{
+    Debug.Log($"Cannot destroy {gameObject.name} because it is inactive.");
+}
+
+    }
+
 }
