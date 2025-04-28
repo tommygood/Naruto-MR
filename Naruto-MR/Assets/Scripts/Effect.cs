@@ -18,6 +18,7 @@ namespace EffectNamespace
         public EffectSetting windEffect;
 
         public Transform spawnPoint; // 發射點
+        public Transform playHead; // 頭盔
 
         public float launchForce = 5f;
 
@@ -29,6 +30,12 @@ namespace EffectNamespace
                 Debug.LogWarning("spawnPoint 未設定，已自動設為當前物件");
             }
 
+            if (playHead == null)
+            {
+                playHead = Camera.main.transform;
+                Debug.LogWarning("playHead 未設定，已自動設為主攝影機");
+            }
+
             if (setting != null && setting.prefab != null)
             {
                 GameObject effect = Instantiate(setting.prefab, spawnPoint.position, Quaternion.identity);
@@ -37,7 +44,7 @@ namespace EffectNamespace
                 effect.transform.localScale = setting.scale;
 
                 // 朝向 頭盔面向方向 發射
-                Vector3 direction = spawnPoint.forward.normalized;
+                Vector3 direction = playHead.forward.normalized;
                 effect.transform.rotation = Quaternion.LookRotation(direction);
 
                 Rigidbody rb = effect.GetComponent<Rigidbody>();

@@ -6497,22 +6497,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireEffect:
     prefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.3, y: 0.3, z: 0.3}
     lifeTime: 2
   thunderEffect:
     prefab: {fileID: 2790239246667695447, guid: 2f0c96fa9be733c49b02f90a5800ef48, type: 3}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.3, y: 0.3, z: 0.3}
     lifeTime: 2
   waterEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.3, y: 0.3, z: 0.3}
     lifeTime: 2
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.3, y: 0.3, z: 0.3}
     lifeTime: 2
-  spawnPoint: {fileID: 1029184478}
-  npc: {fileID: 1583633151}
+  spawnPoint: {fileID: 1462221609}
+  playHead: {fileID: 0}
   launchForce: 5
 --- !u!4 &1565614272
 Transform:
@@ -6529,11 +6529,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1583633151 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6f9d90caa13dc643b00257e95d2092b, type: 3}
-  m_PrefabInstance: {fileID: 1058256998}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1585655930
 GameObject:
   m_ObjectHideFlags: 0
