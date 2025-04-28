@@ -18,7 +18,6 @@ namespace EffectNamespace
         public EffectSetting windEffect;
 
         public Transform spawnPoint; // 發射點
-        public Transform npc;        // 目標 NPC
 
         public float launchForce = 5f;
 
@@ -37,17 +36,14 @@ namespace EffectNamespace
                 // 設定特效大小
                 effect.transform.localScale = setting.scale;
 
-                // 朝向 NPC 發射
-                if (npc != null)
-                {
-                    Vector3 direction = (npc.position - spawnPoint.position).normalized;
-                    effect.transform.rotation = Quaternion.LookRotation(direction);
+                // 朝向 頭盔面向方向 發射
+                Vector3 direction = spawnPoint.forward.normalized;
+                effect.transform.rotation = Quaternion.LookRotation(direction);
 
-                    Rigidbody rb = effect.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.AddForce(direction * launchForce, ForceMode.Impulse);
-                    }
+                Rigidbody rb = effect.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.AddForce(direction * launchForce, ForceMode.Impulse);
                 }
 
                 // 設定特效自動銷毀
@@ -61,5 +57,4 @@ namespace EffectNamespace
             }
         }
     }
-
 }
