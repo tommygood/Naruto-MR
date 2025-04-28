@@ -5,6 +5,27 @@ using UnityEngine.XR.Management;
 using UnityEngine.SubsystemsImplementation;
 using UnityEngine.UI;
 using TMPro;
+using EffectNamespace; // Assuming EffectNamespace is the namespace for Effect and EffectSetting classes
+
+public class AudioManager {
+    public void enableAudio(string name)
+    {
+        // find the object by the tag name
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            // check if the object has a tag which is in the ninjutsuNames list
+            if (obj.tag == name)
+            {
+                obj.SetActive(false);
+                obj.SetActive(true);
+                return;
+            }
+        }
+        //Debug.LogError($"Audio object with tag {name} not found!");
+        // FIXME: add a warning log if the object is not found
+    }
+}
 
 public class NinjutsuGesture
 {
@@ -13,7 +34,7 @@ public class NinjutsuGesture
     public string[] gestures; // Array of gesture names
     public string[] current_gestures; // Array of current gesture names
 
-    public GameObject ninjutusu_particle; // Particle system for the ninjutsu
+    public EffectSetting ninjutusu_particle; // Particle system for the ninjutsu
 
     public int chakra_cost = 10; // Chakra cost for the ninjutsu
 
@@ -22,9 +43,18 @@ public class NinjutsuGesture
     {
         // Implement the logic to activate the ninjutsu here
         // set a gameobject which have a tag same as the ninjutsu name to active
+        // public EffectSetting fireEffect;
+        Effect effect = GameObject.FindFirstObjectByType<Effect>();
+
+        // find the object from effect class by the ninjutsu name
+        ninjutusu_particle = effect.GetType().GetField($"{atrribute}Effect").GetValue(effect) as EffectSetting;
         if (ninjutusu_particle != null)
         {
-            ninjutusu_particle.SetActive(true);
+            
+            effect.SpawnEffect(ninjutusu_particle);
+            AudioManager audioManager = new AudioManager();
+            // enable with name of the Audio-<ninjutsu_name>
+            audioManager.enableAudio($"Audio-{name}");
         }
         else {
             Debug.LogError($"Ninjutsu particle for {name} is not set.");
@@ -70,8 +100,23 @@ public class HandJointTracker : MonoBehaviour
 
     private float ninjutsu_timeout_count = 0; // Ninjutsu timeout count
 
+    // find the MainCamera object in the scene by tag
+    private GameObject MainCamera;
+
+    Animator animator;
+
     void Start()
     {
+        MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        // print the name of the MainCamera object
+        if (MainCamera != null)
+        {
+            Debug.Log($"MainCamera object found: {MainCamera.name}");
+        }
+        else
+        {
+            Debug.LogError("MainCamera object not found!");
+        }
 
         var subsystems = new List<XRHandSubsystem>();
         SubsystemManager.GetSubsystems(subsystems);
@@ -83,15 +128,22 @@ public class HandJointTracker : MonoBehaviour
         ninjutsuGestures = new NinjutsuGesture[]
         {
             new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" }, chakra_cost = 20 },
-            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Saru", "Ne", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
+            new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Ne", "Saru", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
+            new NinjutsuGesture { name = "thunderSlide", atrribute = "thunder", gestures = new string[] { "Saru", "Ne" }, current_gestures = new string[] { "Ne", "I" }, chakra_cost = 15 },
+            new NinjutsuGesture { name = "windSlam", atrribute = "wind", gestures = new string[] { "Mi", "I", "Ne" }, current_gestures = new string[] { "Uma", "I" }, chakra_cost = 10 },
         };
         // set the particle system for the ninjutsu gesture
-        SetNinjutsuParticle();
+        //SetNinjutsuParticle();
 
         // initialize the gesture confirmation object
         gestureConfirmation = new GestureConfirmation();
+
+        // set the animator
+        GameObject naruto = GameObject.FindGameObjectWithTag("naruto");
+        animator = naruto.GetComponent<Animator>();
     }
 
+    /*
     void SetNinjutsuParticle()
     {
         // Set the particle system for the ninjutsu
@@ -120,6 +172,7 @@ public class HandJointTracker : MonoBehaviour
             }
         }
     }
+    */
 
     void Update()
     {
@@ -164,6 +217,7 @@ public class HandJointTracker : MonoBehaviour
                 
             )
             {
+                animator.SetBool("clapping", true);
                 return true; // Replace with actual gesture name
             }
        }
@@ -210,14 +264,20 @@ public class HandJointTracker : MonoBehaviour
            )
        {
             float distance_middletip = leftMiddleTip.position.x - rightMiddleTip.position.x;
+            Vector3 rightDirection = MainCamera.transform.right.normalized;
+            Vector3 diff = leftMiddleTip.position - rightMiddleTip.position;
+            float signedDistance = Vector3.Dot(diff, rightDirection);
             float distance_indextip = leftLittleIntermediate.position.y - rightIndexIntermediate.position.y;
+            Vector3 upDirection = MainCamera.transform.up.normalized;
+            Vector3 diff2 = leftLittleIntermediate.position - rightIndexIntermediate.position;
+            float signedDistance2 = Vector3.Dot(diff2, upDirection);
             
             //Debug.Log($"QQ Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > -0.09f && distance_indextip < 0f) ? "true" : "false")}");
             //Debug.Log($"QQ Distance between left and right MiddleTip: {distance_middletip}, {((distance_middletip > -0.17f && distance_middletip < -0.15f) ? "true" : "false")}");
             // print the condition is matched or not
             //Debug.Log($"Distance between left and right ThumbMetacarpal: {distance_thumbmetacarpal}");
-            if ((distance_middletip > 0.07f && distance_middletip < 0.1f) &&
-                (distance_indextip > -0.09f && distance_indextip < 0f) 
+            if ((signedDistance < 0.15f && signedDistance > 0.1f) &&
+                (signedDistance2 > -0.09f && signedDistance2 < 0f) 
             )
             {
                 Quaternion leftPalmRotation = leftPalm.rotation;
@@ -269,22 +329,40 @@ public class HandJointTracker : MonoBehaviour
        if (leftHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose leftIndexDistal) &&
             rightHandJoints.TryGetValue(XRHandJointID.IndexDistal, out Pose rightIndexDistal) &&
             rightHandJoints.TryGetValue(XRHandJointID.IndexTip, out Pose rightIndexTip) &&
-            rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightIndexProximal)
+            rightHandJoints.TryGetValue(XRHandJointID.IndexProximal, out Pose rightIndexProximal) &&
+            leftHandJoints.TryGetValue(XRHandJointID.Palm, out Pose leftPalm) &&
+           rightHandJoints.TryGetValue(XRHandJointID.Palm, out Pose rightPalm)
            )
        {
             float distance_indexdistal = leftIndexDistal.position.x - rightIndexDistal.position.x;
             float distance_indextip = rightIndexProximal.position.y - rightIndexTip.position.y;
             float distance_indextip_z = rightIndexProximal.position.z - rightIndexTip.position.z;
-            Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.0001f && distance_indextip < 0.04f) ? "true" : "false")}");
-            Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) ? "true" : "false")}");
-            Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.07f && distance_indextip_z < 0f) ? "true" : "false")}");
-            if ((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) &&
-                (distance_indextip > 0.0001f && distance_indextip < 0.04f) &&
-                (distance_indextip_z > -0.07f && distance_indextip_z < 0f)
-                
+            float left_palm_x = leftPalm.rotation.eulerAngles.x;
+            Vector3 rightDirection = MainCamera.transform.right.normalized;
+            Vector3 diff = leftIndexDistal.position - rightIndexDistal.position;
+            float signedDistance = Vector3.Dot(diff, rightDirection);
+            Vector3 upDirection = MainCamera.transform.up.normalized;
+
+            Vector3 diff2 = rightIndexProximal.position - rightIndexTip.position;
+            float signedDistance2 = Vector3.Dot(diff2, upDirection);
+            //Debug.Log($"Signed distance2: {signedDistance2}");
+            Vector3 forwardDirection = MainCamera.transform.forward.normalized;
+            Vector3 diff3 = rightIndexProximal.position - rightIndexTip.position;
+            float signedDistance3 = Vector3.Dot(diff3, forwardDirection);
+
+            //Debug.Log($"Signed distance: {signedDistance}. Signed distance2: {signedDistance2}. Signed distance3: {signedDistance3}");
+            //Debug.Log($"Left Palm X: {left_palm_x}");
+            //Debug.Log($"distance_indexdistal: {distance_indexdistal}, left indextip: {MainCamera.transform.InverseTransformPoint(leftIndexDistal.position).x}, right indextip: {MainCamera.transform.InverseTransformPoint(rightIndexDistal.position).x}");
+            //Debug.Log($"Distance between left and right IndexTip: {distance_indextip}, {((distance_indextip > 0.0001f && distance_indextip < 0.04f) ? "true" : "false")}");
+            //Debug.Log($"Distance between left and right IndexDistal: {distance_indexdistal}, {((distance_indexdistal > 0.02f && distance_indexdistal < 0.07f) ? "true" : "false")}"); // -0.03
+            //Debug.Log($"Distance between left and right IndexTip Z: {distance_indextip_z}, {((distance_indextip_z > -0.07f && distance_indextip_z < 0f) ? "true" : "false")}"); // 0.06
+            if ((signedDistance > 0.02f && signedDistance < 0.07f) &&
+                ((signedDistance2 > 0.0001f && signedDistance2 < 0.04f)) &&
+                ((signedDistance3 > -0.07f && signedDistance3 < 0f)) &&
+                (left_palm_x > 280f && left_palm_x < 320f) 
             )
             {
-               return true;
+                return true; // Replace with actual gesture name Left Palm Rotation: (355.83, 35.95, 96.82) Right Palm Rotation: (352.50, 215.55, 76.88)
             }
             
         }
@@ -383,11 +461,11 @@ public class HandJointTracker : MonoBehaviour
         if (fade_in_lock) yield break; // Prevent multiple coroutines from running at the same time
         fade_in_lock = true; // Lock the coroutine
 
+        AudioManager audioManager = new AudioManager();
+        audioManager.enableAudio("Audio-gesture");
+
         // find the word object in the scene by tag
         GameObject gestureWord = GameObject.FindGameObjectWithTag("GestureWord");
-
-        // find the MainCamera object in the scene by tag
-        GameObject MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         // make the gestureWord object a child of the MainCamera object
         if (gestureWord != null && MainCamera != null)
@@ -526,13 +604,15 @@ public class HandJointTracker : MonoBehaviour
                         //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
                     }
                 }
-
+             
+                /*
                 // print the current gesture array
                 for (int j = 0; j < ninjutsuGestures.Length; j++)
                 {
                     string current_gestures = string.Join(", ", ninjutsuGestures[j].current_gestures);
-                    //Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
+                    Debug.Log($"~~~~~~~~~~~~Current gesture array: {current_gestures}");
                 }
+                */
 
                 bool resetGesture = false;
                 // check if the ninjutsu gesture is completed
@@ -556,7 +636,8 @@ public class HandJointTracker : MonoBehaviour
                     // reset the gesture array
                     for (int j = 0; j < ninjutsuGestures.Length; j++)
                     {
-                        ninjutsuGestures[j].current_gestures = ninjutsuGestures[j].gestures;
+                        // copy by value, not by reference
+                        ninjutsuGestures[j].current_gestures = (string[])ninjutsuGestures[j].gestures.Clone();
                     }
                 }
                 //Debug.Log($"~~~~~~~~~~~~Gesture detected: {gesture}");
