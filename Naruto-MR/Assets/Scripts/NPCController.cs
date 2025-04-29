@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
-using Meta.XR.MRUtilityKit;
-using NUnit.Framework;
+using TMPro;
 
 public class NPCController : MonoBehaviour
 {
@@ -28,6 +27,8 @@ public class NPCController : MonoBehaviour
 
     public float coolDown = 5f;
     private float currentCoolDown;
+
+    public TextMeshProUGUI text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,6 +73,7 @@ public class NPCController : MonoBehaviour
 
         //}
         agent.destination = player.position;
+        text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n";
     }
 
     //void OnCollisionEnter(Collision collision)
