@@ -2,6 +2,8 @@ using UnityEngine;
 using Meta.XR.MRUtilityKit;
 using System.Collections;
 using Unity.AI.Navigation;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class RoomManager : MonoBehaviour
 {
@@ -12,18 +14,64 @@ public class RoomManager : MonoBehaviour
     public NavMeshSurface surface;
     public GameObject NPC;
 
-    private bool sceneHasBeenLoaded;
-    public MRUKRoom currentRoom;
+    public Vector3 spawnPosition;
+    public float maxDistance;
 
-    private bool SceneAndRoomInfoAvailable => currentRoom != null && sceneHasBeenLoaded;
+    public MRUKRoom room;
 
-    private void Start()
+    private void spawnNPC()
     {
-        StartCoroutine(Initialization());
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(spawnPosition, out hit, maxDistance, NavMesh.AllAreas))
+        {
+            NPC.transform.position = hit.position;
+            NPC.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("No valid NavMesh position found near: " + spawnPosition);
+        }
     }
 
-    // Initialize the room
-    private IEnumerator Initialization()
+    private void BuildNavMesh()
+    {
+        surface.BuildNavMesh();
+        Debug.Log("NavMesh building is done");
+    }
+
+    private void AdjustObjectComponents()
+    {
+        Debug.Log(room.gameObject.GetType());
+        foreach (Transform child in room.gameObject.transform)
+        {
+            Debug.Log(child.gameObject.name);
+            foreach (Transform grandChild in child)
+            {
+                Debug.Log(grandChild.gameObject.name);
+                grandChild.gameObject.AddComponent<SceneCollisionHandler>();
+                grandChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                if (grandChild.gameObject.name != "FLOOR_EffectMesh")
+                {
+                    var modifier = grandChild.gameObject.AddComponent<NavMeshModifier>();
+                    modifier.overrideArea = true;
+                    modifier.area = NavMesh.GetAreaFromName("Not Walkable");
+                }
+            }
+        }
+    }
+
+    private IEnumerator WaitForRoomCreated()
+    {
+        while (true)
+        {
+            room = FindAnyObjectByType<MRUKRoom>();
+            if (room) break;
+            yield return null;
+        }
+        Debug.Log("The room is ready");
+    }
+
+    private IEnumerable WaitForFloorCreated()
     {
         while (true)
         {
@@ -37,62 +85,27 @@ public class RoomManager : MonoBehaviour
             yield return null;
         }
         Debug.Log("The mesh of the room is ready");
+    }
+
+
+    // Initialize the room
+    private IEnumerator Initialization()
+    {
+        yield return WaitForRoomCreated();
+
+        yield return WaitForFloorCreated();
 
         BuildNavMesh();
 
         AdjustObjectComponents();
-    }
+        Debug.Log("The room has been initialized.");
 
-    private void BuildNavMesh()
-    {
-        surface.BuildNavMesh();
-        Debug.Log("NavMesh building is done");
-    }
-
-    private void DisableMeshRenderers()
-    {
-        MeshRenderer[] renderers = FindObjectsOfType<MeshRenderer>();
-        foreach (var renderer in renderers)
-        {
-            renderer.enabled = false;
-        }
-        Debug.Log("Disable all the MeshRenderers in the room");
-    }
-
-    private void AdjustObjectComponents()
-    {
-        Debug.Log(currentRoom.gameObject.GetType());
-        foreach (Transform child in currentRoom.gameObject.transform)
-        {
-            Debug.Log(child.gameObject.name);
-            foreach (Transform grandChild in child)
-            {
-                Debug.Log(grandChild.gameObject.name);
-                grandChild.gameObject.AddComponent<SceneCollisionHandler>();
-                grandChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
-            }
-        }
-    }
-
-    private void OnEnable()
-    {
-        mruk.RoomCreatedEvent.AddListener(BindRoomInfo);
-    }
-
-    private void OnDisable()
-    {
-        mruk.RoomCreatedEvent.RemoveListener(BindRoomInfo);
+        spawnNPC();
     }
 
     public void EnableMRUKManager()
     {
-        sceneHasBeenLoaded = true;
         Debug.Log($"{nameof(RoomManager)} has been enabled due to scene availability");
-    }
-
-    private void BindRoomInfo(MRUKRoom room)
-    {
-        currentRoom = room;
-        Debug.Log($"{nameof(RoomManager)} room was bound to current room");
+        StartCoroutine(Initialization());
     }
 }

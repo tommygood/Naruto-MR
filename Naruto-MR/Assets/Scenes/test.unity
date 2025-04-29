@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 74043457}
   - component: {fileID: 74043456}
   m_Layer: 0
-  m_Name: MRUKManager
+  m_Name: RoomManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,9 @@ MonoBehaviour:
   isBuilt: 0
   surface: {fileID: 711512081}
   NPC: {fileID: 1140927754}
-  currentRoom: {fileID: 0}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  maxDistance: 10
+  room: {fileID: 0}
 --- !u!4 &74043457
 Transform:
   m_ObjectHideFlags: 0
