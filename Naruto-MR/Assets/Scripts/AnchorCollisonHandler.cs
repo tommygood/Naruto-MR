@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AnchorCollisionHandler : MonoBehaviour
 {
-    public int num;
+    private static int destroyedCount = 0; // Anchor的總數
+
     private void Start()
     {
         if (GetComponent<Rigidbody>() == null)
@@ -13,22 +14,28 @@ public class AnchorCollisionHandler : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {   
-     Debug.Log($"Trigger enter! I am {gameObject.name}, hit {other.gameObject.name}");
-    if (gameObject.activeSelf)
     {
-        Debug.Log($"Destroying {gameObject.name}");
-        Destroy(gameObject);
-        num += num;
-        if (num == 6){
-            Debug.Log($"新手村結束！");
+        Debug.Log($"Trigger enter! {gameObject.name} hit {other.gameObject.name} (tag: {other.tag})");
+
+        if (other.CompareTag("effect"))
+        {
+            if (gameObject.activeSelf)
+            {
+                Debug.Log($"Destroying {gameObject.name} it was hit by the effect.");
+                Destroy(gameObject);
+
+                // 計數+1
+                destroyedCount++;
+
+                if (destroyedCount == 6)
+                {
+                    Debug.Log("新手村結束！");
+                }
+            }
+            else
+            {
+                Debug.Log($"Cannot destroy {gameObject.name} because it is inactive.");
+            }
         }
     }
-    else
-    {
-        Debug.Log($"Cannot destroy {gameObject.name} because it is inactive.");
-    }
-
-        }
-
 }

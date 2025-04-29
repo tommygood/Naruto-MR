@@ -38,7 +38,7 @@ public class NewbieControl : MonoBehaviour
             {
                 Debug.Log("Creating anchors...");
                 EnableMRUKManager();
-                CreateTargetsBasedOnName("BED");
+                CreateTargetsBasedOnName("TABLE_EffectMesh");
             }
         }
     }
@@ -50,7 +50,7 @@ public class NewbieControl : MonoBehaviour
             {
                 Debug.Log("Creating anchors...");
                 EnableMRUKManager();
-                CreateTargetsBasedOnName("BED");
+                CreateTargetsBasedOnName("TABLE_EffectMesh");
             }
         }
     }
