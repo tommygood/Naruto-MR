@@ -1167,6 +1167,7 @@ MonoBehaviour:
     - 5
     - 5
     - 5
+  currentLevel: 2
 --- !u!4 &443436555
 Transform:
   m_ObjectHideFlags: 0

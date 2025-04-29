@@ -17,7 +17,8 @@ public class AnchorCollisionHandler : MonoBehaviour
     {
         Debug.Log($"Trigger enter! {gameObject.name} hit {other.gameObject.name} (tag: {other.tag})");
 
-        if (other.CompareTag("effect"))
+        // comppare the name contqains "Effect_"
+        if (other.name.Contains("Effect_"))
         {
             if (gameObject.activeSelf)
             {
@@ -27,9 +28,13 @@ public class AnchorCollisionHandler : MonoBehaviour
                 // 計數+1
                 destroyedCount++;
 
-                if (destroyedCount == 6)
+                if (destroyedCount == 4)
                 {
                     Debug.Log("新手村結束！");
+                    // use SceneLoader to load the next scene
+                    SceneLoader.Instance.LoadNewScene("Assets/Scenes/test.unity");
+                    // Destroy the current scene
+                    SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/newbie.unity");
                 }
             }
             else

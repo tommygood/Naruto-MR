@@ -7,8 +7,8 @@ namespace LinesNamespace
     [System.Serializable]
     public class LinesManager
     {
-        private List<string> linesTypes = new List<string> { "N_1", "N_2", "N_3", "N_4", "N_5", "S_1", "S_2", "S_3", "S_4", "S_5", "S_scream" };
-        public List<float> linesDurations = new List<float> { 17, 15, 15, 5, 5, 5, 5, 5, 5, 5, 3 };
+        private List<string> linesTypes = new List<string> { "N_0_1", "S_0_1", "N_0_2", "N_1", "N_2", "N_3", "N_4", "N_5", "S_1", "S_2", "S_3", "S_4", "S_5", "S_scream" };
+        public List<float> linesDurations = new List<float> { 18, 2, 8, 17, 15, 15, 5, 5, 5, 5, 5, 5, 5, 3 };
 
         public LinesManager()
         {
@@ -94,12 +94,21 @@ public class StoryManager : MonoBehaviour
 {
     public LinesNamespace.LinesManager linesManager;
     public AnimationNamespace.AnimationManager animationManager;
+
+    public int currentLevel = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         linesManager = new LinesNamespace.LinesManager();
         animationManager = new AnimationNamespace.AnimationManager();
-        StartCoroutine(Level2Init());
+        if (currentLevel == 1)
+        {
+            StartCoroutine(Level1Init());
+        }
+        else if (currentLevel == 2)
+        {
+            StartCoroutine(Level2Init());
+        }
     }
 
     private IEnumerator Sleep(float seconds)
@@ -107,15 +116,49 @@ public class StoryManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
     }
 
+    private IEnumerator Level1Init()
+    {
+        // set the position of naruto near to the main camera
+        GameObject naruto = GameObject.FindGameObjectWithTag("naruto");
+        if (naruto != null)
+        {
+            // find the main camera by tag
+            GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            if (mainCamera != null)
+            {
+                // set the position of naruto to the main camera position
+                Vector3 newPosition = mainCamera.transform.position + new Vector3(0, 0, 2);
+                naruto.transform.position = newPosition;
+                Debug.Log("Set the position of naruto to: " + newPosition);
+            }
+            else
+            {
+                Debug.LogError("Failed to find the main camera object");
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to find the naruto object");
+        }
+        linesManager.Play("N_0_1");
+        yield return Sleep(linesManager.linesDurations[0]);
+        linesManager.Play("S_0_1");
+        yield return Sleep(linesManager.linesDurations[1]);
+        linesManager.Play("N_0_2");
+        animationManager.SetAnimation("clapping", true);
+        yield return Sleep(linesManager.linesDurations[2]);
+        animationManager.SetAnimation("clapping", false);
+    }
+
     private IEnumerator Level2Init()
     {
         linesManager.Play("N_1");
-        yield return Sleep(linesManager.linesDurations[0]);
+        yield return Sleep(linesManager.linesDurations[3]);
         linesManager.Play("S_1");
-        yield return Sleep(linesManager.linesDurations[1]);
+        yield return Sleep(linesManager.linesDurations[4]);
         linesManager.Play("N_3");
         animationManager.SetAnimation("angry", true);
-        yield return Sleep(linesManager.linesDurations[2]);
+        yield return Sleep(linesManager.linesDurations[5]);
         animationManager.SetAnimation("angry", false);
 
     }

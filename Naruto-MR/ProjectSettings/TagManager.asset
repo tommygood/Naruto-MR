@@ -20,6 +20,10 @@ TagManager:
   - PlayerBody
   - naruto_attack
   - S_scream
+  - N_0_1
+  - S_0_1
+  - S_0_2
+  - N_0_2
   layers:
   - Default
   - TransparentFX
