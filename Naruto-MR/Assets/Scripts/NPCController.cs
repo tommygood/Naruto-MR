@@ -30,6 +30,9 @@ public class NPCController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
+    private float track_interval = 0.5f;
+    private float track_timer = 0f; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +56,17 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // check the timeer
+        track_timer += Time.deltaTime;
+        if (track_timer >= track_interval)
+        {
+            track_timer = 0f;
+        }
+        else 
+        {
+            return;
+        }
+        
         //float distance = Vector3.Distance(agent.transform.position, player.position);
         //if (distance < taijutsuThreshold)
         //{
@@ -72,7 +86,11 @@ public class NPCController : MonoBehaviour
         //    CastNinjutsu();
 
         //}
+
         float distance = Vector3.Distance(agent.transform.position, player.position);
+        agent.destination = new Vector3(player.position.x, transform.position.y, player.position.z);
+        text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
+        /*
         if (distance > 2f) {
             agent.isStopped = false;
             agent.destination = new Vector3(player.position.x, transform.position.y, player.position.z);
@@ -83,6 +101,7 @@ public class NPCController : MonoBehaviour
             text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
 
         }
+        */
     }
 
     //void OnCollisionEnter(Collision collision)
