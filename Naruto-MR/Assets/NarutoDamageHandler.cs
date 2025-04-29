@@ -29,8 +29,9 @@ public class NarutoDamageHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("Effect") && collision.gameObject.tag != "naruto_attack")
+        if (collision.gameObject.name.Contains("Effect_") && collision.gameObject.tag != "naruto_attack")
         {
+            Debug.Log("NNN Naruto is hurt!" + collision.gameObject.name + " " + collision.gameObject.tag);
             StartCoroutine(playDropDamageAnimation());
             TakeDamage(10);
         }
