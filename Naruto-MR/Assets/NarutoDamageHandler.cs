@@ -29,7 +29,7 @@ public class NarutoDamageHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("Effect"))
+        if (collision.gameObject.name.Contains("Effect") && collision.gameObject.tag != "naruto_attack")
         {
             StartCoroutine(playDropDamageAnimation());
             TakeDamage(10);
@@ -47,7 +47,7 @@ public class NarutoDamageHandler : MonoBehaviour
 
         if (HP <= 0)
         {
-            Debug.Log("QQ Naruto is defeated!");
+            Debug.Log("Q Naruto is defeated!");
             // FIXME: drop a game object to the ground
             // DropGameObject();
         }
@@ -72,7 +72,7 @@ public class NarutoDamageHandler : MonoBehaviour
         animationManager.SetAnimation("stumble_backward", false);
         yield return Sleep(1f);
         animationManager.SetAnimation("backflip", true);
-        yield return Sleep(2f);
+        yield return Sleep(2.5f);
         animationManager.SetAnimation("backflip", false);
         yield return Sleep(1f);
         animationManager.SetAnimation("running", true);

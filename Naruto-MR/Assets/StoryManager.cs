@@ -7,7 +7,7 @@ namespace LinesNamespace
     [System.Serializable]
     public class LinesManager
     {
-        private List<string> linesTypes = new List<string> { "N_1", "N_2", "N_3", "N_4", "N_5", "S_1", "S_2", "S_3", "S_4", "S_5" };
+        private List<string> linesTypes = new List<string> { "N_1", "N_2", "N_3", "N_4", "N_5", "S_1", "S_2", "S_3", "S_4", "S_5", "S_scream" };
         public List<float> linesDurations = new List<float> { 17, 15, 15, 5, 5, 5, 5, 5, 5, 5 };
 
         public LinesManager()

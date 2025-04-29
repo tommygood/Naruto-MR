@@ -72,8 +72,17 @@ public class NPCController : MonoBehaviour
         //    CastNinjutsu();
 
         //}
-        agent.destination = player.position;
-        text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n";
+        float distance = Vector3.Distance(agent.transform.position, player.position);
+        if (distance > 2f) {
+            agent.isStopped = false;
+            agent.destination = new Vector3(player.position.x, transform.position.y, player.position.z);
+            text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
+        } else {
+            agent.isStopped = true;
+            agent.ResetPath();
+            text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
+
+        }
     }
 
     //void OnCollisionEnter(Collision collision)

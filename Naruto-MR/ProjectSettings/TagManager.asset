@@ -17,6 +17,9 @@ TagManager:
   - effect
   - NarutoLeftHand
   - NarutoRightHand
+  - PlayerBody
+  - naruto_attack
+  - S_scream
   layers:
   - Default
   - TransparentFX
