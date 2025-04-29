@@ -181,12 +181,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mruk: {fileID: 817220592}
   controller: -1
-  floor: {fileID: 0}
+  isBuilt: 0
   surface: {fileID: 711512081}
   NPC: {fileID: 1140927754}
   currentRoom: {fileID: 0}
-  anchorObjectsCreated: []
-  isBuilt: 0
 --- !u!4 &74043457
 Transform:
   m_ObjectHideFlags: 0
@@ -524,6 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 624129843}
   - component: {fileID: 624129842}
+  - component: {fileID: 624129844}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -611,6 +610,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &624129844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624129841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &711512080
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +786,10 @@ PrefabInstance:
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: Labels
       value: 16383
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
+      propertyPath: hideMesh
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: Colliders
@@ -1269,8 +1295,6 @@ MonoBehaviour:
   CloseRangeThreshold: 0
   blood: 30
   currentNinjutsu: 0
-  mrukManager: {fileID: 0}
-  currentRoom: {fileID: 0}
   coolDown: 5
 --- !u!54 &1140927758
 Rigidbody:

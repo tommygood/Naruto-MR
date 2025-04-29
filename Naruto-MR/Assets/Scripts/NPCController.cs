@@ -26,9 +26,6 @@ public class NPCController : MonoBehaviour
 
     public int currentNinjutsu;
 
-    public MRUKManager mrukManager;
-    public MRUKRoom currentRoom;
-
     public float coolDown = 5f;
     private float currentCoolDown;
 
@@ -49,7 +46,6 @@ public class NPCController : MonoBehaviour
         //if (!animator)
         //    Debug.Log("Animator is missing!");
 
-        currentRoom = mrukManager.currentRoom;
         // surface.BuildNavMesh();
     }
 
