@@ -154,6 +154,7 @@ public class NPCController : MonoBehaviour
     {
         isAttacking = true;
         agent.isStopped = true;
+        Debug.Log("Taijutsu");
         yield return new WaitForSeconds(3);
         isAttacking = false;
         agent.isStopped = false;
