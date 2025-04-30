@@ -31,12 +31,6 @@ public class NewbieControl : MonoBehaviour
             CreateTargetsBasedOnName("TABLE_EffectMesh");
         }
 
-        // 按 A 鍵 (OVR) 或 L 鍵 (PC) 建立圖片列
-        if (OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown(KeyCode.L))
-        {
-            Debug.Log("建立圖片列！");
-            CreateImageRowOnWallFace();
-        }
     }
 
     private void CreateTargetsBasedOnName(string targetName)
@@ -118,29 +112,44 @@ public class NewbieControl : MonoBehaviour
 
 
     private void CreateImageRowOnWallFace()
-    {   
-    string[] texturePaths = { "Image/a", "Image/b", "Image/c" };
-
-    GameObject wallFace = GameObject.Find("WINDOW_FRAME");
-    if (wallFace == null)
     {
-        Debug.LogWarning("找不到WINDOW_FRAME");
-        return;
+    string[] texturePaths = { "Image/a", "Image/b", "Image/c", "Image/d", "Image/e", "Image/f" };
+
+    GameObject[] windows = GameObject.FindGameObjectsWithTag("WINDOW"); // 建議用 Tag 管理
+    if (windows.Length == 0)
+    {
+        // 若沒有使用 Tag，可用名稱搜尋
+        List<GameObject> namedWindows = new();
+        foreach (var obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.name == "WINDOW")
+            {
+                namedWindows.Add(obj);
+            }
+        }
+        windows = namedWindows.ToArray();
+
+        if (windows.Length == 0)
+        {
+            Debug.LogWarning("找不到任何名為 WINDOW 的物件");
+            return;
+        }
     }
 
-    Vector3 forward = wallFace.transform.forward;
-    Vector3 right = wallFace.transform.right;
-    Vector3 basePosition = wallFace.transform.position + forward * 0.05f;
-
-    float spacing = 0.35f;
-    Vector3 startPosition = basePosition - right * spacing;
-
-    for (int i = 0; i < texturePaths.Length; i++)
+    int textureIndex = 0;
+    foreach (GameObject window in windows)
     {
-        Texture2D tex = Resources.Load<Texture2D>(texturePaths[i]);
+        if (textureIndex >= texturePaths.Length)
+        {
+            Debug.Log("圖片數量不足以覆蓋所有 WINDOW");
+            break;
+        }
+
+        Texture2D tex = Resources.Load<Texture2D>(texturePaths[textureIndex]);
         if (tex == null)
         {
-            Debug.LogWarning($"無法載入圖片 {texturePaths[i]}");
+            Debug.LogWarning($"無法載入圖片 {texturePaths[textureIndex]}");
+            textureIndex++;
             continue;
         }
 
@@ -150,20 +159,21 @@ public class NewbieControl : MonoBehaviour
         GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
         quad.GetComponent<Renderer>().material = mat;
 
-        Vector3 offset = right * spacing * i;
-        quad.transform.position = startPosition + offset;
+        // 在前方稍微往外一點貼圖
+        Vector3 forward = window.transform.forward;
+        quad.transform.position = window.transform.position + forward * 0.05f;
 
-        // 垂直貼在前方
         quad.transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
-
         quad.transform.localScale = Vector3.one * 0.3f;
-        quad.transform.SetParent(wallFace.transform);
+        quad.transform.SetParent(window.transform);
 
-        Debug.Log($"貼圖成功：{texturePaths[i]}");
+        Debug.Log($"已在 WINDOW 上貼圖：{texturePaths[textureIndex]}");
+        textureIndex++;
     }
 
-    Debug.Log("已將三張圖片垂直貼在 LAMP 前方");
+    Debug.Log("圖片貼圖作業完成");
     }
+
 
 
 }
