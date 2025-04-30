@@ -34,6 +34,9 @@ public class NPCController : MonoBehaviour
 
     private bool isAttacking = false;
 
+    public float minDistance = 1.75f;
+    public float rotationSpeed = 5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,9 +62,19 @@ public class NPCController : MonoBehaviour
 
         if (isAttacking) return;
 
+        Vector3 directionToPlayer = player.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        
         float distance = Vector3.Distance(agent.transform.position, player.position);
         if (distance < taijutsuThreshold) PerformTaijutsu();
-        else agent.destination = player.position;
+        else {
+            Vector3 newPos = player.position;
+            newPos.y = agent.transform.position.y;
+            newPos.x += player.forward.x * minDistance;
+            newPos.z += player.forward.z * minDistance;
+            agent.SetDestination(newPos);
+        }
 
         currentCoolDown -= Time.deltaTime;
         if (currentCoolDown <= 0f) CastNinjutsu();

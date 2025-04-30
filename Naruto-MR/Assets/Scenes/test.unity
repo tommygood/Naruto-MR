@@ -214,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3216,12 +3216,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  taijutsuThreshold: 0
-  CloseRangeThreshold: 0
+  taijutsuThreshold: 1
+  CloseRangeThreshold: 2
   blood: 30
   currentNinjutsu: 0
   coolDown: 5
   text: {fileID: 0}
+  minDistance: 1.75
 --- !u!54 &1140927758
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3279,7 +3280,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140927754}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4354,7 +4355,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616996292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

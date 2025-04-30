@@ -52,7 +52,9 @@ public class RoomManager : MonoBehaviour
                 //grandChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 if (grandChild.gameObject.name != "FLOOR_EffectMesh")
                 {
-                    var modifier = grandChild.gameObject.AddComponent<NavMeshObstacle>();
+                    var modider = grandChild.gameObject.AddComponent<NavMeshModifier>();
+                    modider.overrideArea = true;
+                    modider.area = NavMesh.GetAreaFromName("Not Walkable");
                 }
             }
             
@@ -94,10 +96,9 @@ public class RoomManager : MonoBehaviour
 
         yield return WaitForFloorCreated();
 
-        BuildNavMesh();
-
         AdjustObjectComponents();
-        Debug.Log("The room has been initialized.");
+
+        BuildNavMesh();
 
         spawnNPC();
     }
