@@ -7,8 +7,8 @@ namespace LinesNamespace
     [System.Serializable]
     public class LinesManager
     {
-        private List<string> linesTypes = new List<string> { "N_0_1", "S_0_1", "N_0_2", "N_1", "N_2", "N_3", "N_4", "N_5", "S_1", "S_2", "S_3", "S_4", "S_5", "S_scream" };
-        public List<float> linesDurations = new List<float> { 18, 2, 8, 17, 15, 15, 5, 5, 5, 5, 5, 5, 5, 3 };
+        private List<string> linesTypes = new List<string> { "N_0_1", "S_0_1", "N_0_2", "N_1", "S_1", "N_2", "S_2", "N_3", "S_3", "N_4", "S_4", "N_5", "S_5", "N_6", "S_6", "N_7", "S_scream" };
+        public List<float> linesDurations = new List<float> { 15, 5, 11, 5, 8, 5, 11, 5, 5, 5, 11, 7, 11, 4, 5, 4, 3 };
 
         public LinesManager()
         {
@@ -141,6 +141,7 @@ public class StoryManager : MonoBehaviour
             Debug.LogError("Failed to find the naruto object");
         }
         linesManager.Play("N_0_1");
+        Debug.Log("Play the first line: N_0_1 PP");
         yield return Sleep(linesManager.linesDurations[0]);
         linesManager.Play("S_0_1");
         yield return Sleep(linesManager.linesDurations[1]);
@@ -156,10 +157,31 @@ public class StoryManager : MonoBehaviour
         yield return Sleep(linesManager.linesDurations[3]);
         linesManager.Play("S_1");
         yield return Sleep(linesManager.linesDurations[4]);
-        linesManager.Play("N_3");
+        linesManager.Play("N_2");
         animationManager.SetAnimation("angry", true);
         yield return Sleep(linesManager.linesDurations[5]);
+        linesManager.Play("S_2");
+        yield return Sleep(linesManager.linesDurations[6]);
+        linesManager.Play("N_3");
+        yield return Sleep(linesManager.linesDurations[7]);
+        linesManager.Play("S_3");
+        yield return Sleep(linesManager.linesDurations[8]);
         animationManager.SetAnimation("angry", false);
-
+        linesManager.Play("N_4");
+        animationManager.SetAnimation("defeated", true);
+        yield return Sleep(linesManager.linesDurations[9]);
+        linesManager.Play("S_4");
+        yield return Sleep(linesManager.linesDurations[10]);
+        linesManager.Play("N_5");
+        yield return Sleep(linesManager.linesDurations[11]);
+        linesManager.Play("S_5");
+        yield return Sleep(linesManager.linesDurations[12]);
+        linesManager.Play("N_6");
+        yield return Sleep(linesManager.linesDurations[13]);
+        linesManager.Play("S_6");
+        yield return Sleep(linesManager.linesDurations[14]);
+        linesManager.Play("N_7");
+        yield return Sleep(linesManager.linesDurations[15]);
+        animationManager.SetAnimation("defeated", false);
     }
 }

@@ -24,6 +24,16 @@ TagManager:
   - S_0_1
   - S_0_2
   - N_0_2
+  - S_2
+  - S_3
+  - S_4
+  - S_5
+  - S_6
+  - N_2
+  - N_4
+  - N_5
+  - N_6
+  - N_7
   layers:
   - Default
   - TransparentFX

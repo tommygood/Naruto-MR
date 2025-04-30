@@ -112,7 +112,7 @@ public class NewbieControl : MonoBehaviour
         currentRoom = room;
         Debug.Log("Room bound");
 
-        // 一進入房間自動建立圖片列
+        // 一進入自動建立圖片
         CreateImageRowOnWallFace();
     }
 
