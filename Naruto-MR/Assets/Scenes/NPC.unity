@@ -3779,7 +3779,11 @@ MonoBehaviour:
   coolDown: 5
   text: {fileID: 0}
   minDistance: 1.75
+<<<<<<< HEAD
   rotationSpeed: 10
+=======
+  rotationSpeed: 5
+>>>>>>> 976e39717a4c8769cb40c1b1f8d272254580fe3a
 --- !u!195 &891776299
 NavMeshAgent:
   m_ObjectHideFlags: 0

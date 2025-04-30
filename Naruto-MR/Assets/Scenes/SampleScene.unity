@@ -592,6 +592,7 @@ MonoBehaviour:
   MaxHP: 20
   worldSpaceCanvas: {fileID: 1665175710}
   healthBarFill: {fileID: 1986621396}
+  damageInterval: 5
 --- !u!54 &61400863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7278,6 +7279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092a2509d4775d346b42f751ea472a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redBorderFlashObject: {fileID: 0}
 --- !u!54 &1616996295
 Rigidbody:
   m_ObjectHideFlags: 0

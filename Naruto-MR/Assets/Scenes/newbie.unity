@@ -411,6 +411,7 @@ MonoBehaviour:
   MaxHP: 20
   worldSpaceCanvas: {fileID: 1665175710}
   healthBarFill: {fileID: 1986621396}
+  damageInterval: 5
 --- !u!54 &61400863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2414,8 +2415,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 61ac2502fcdc23a4e9a4d768f1883ccb, type: 3}
-  m_Resource: {fileID: 8300000, guid: 61ac2502fcdc23a4e9a4d768f1883ccb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bd54014d6c5cdee4896c6ccb1bbc7033, type: 3}
+  m_Resource: {fileID: 8300000, guid: bd54014d6c5cdee4896c6ccb1bbc7033, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2760,8 +2761,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9111bb0770791cd4ebc120f02ee7da2f, type: 3}
-  m_Resource: {fileID: 8300000, guid: 9111bb0770791cd4ebc120f02ee7da2f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 37609c3ada5cb82499f4982b2bb640c9, type: 3}
+  m_Resource: {fileID: 8300000, guid: 37609c3ada5cb82499f4982b2bb640c9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3023,8 +3024,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: de773f1ed510cfc4e83b06944860d794, type: 3}
-  m_Resource: {fileID: 8300000, guid: de773f1ed510cfc4e83b06944860d794, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 10a71a2c988182b4b91a318037a370ee, type: 3}
+  m_Resource: {fileID: 8300000, guid: 10a71a2c988182b4b91a318037a370ee, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
