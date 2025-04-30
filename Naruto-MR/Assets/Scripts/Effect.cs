@@ -17,7 +17,7 @@ namespace EffectNamespace
         public EffectSetting fireballEffect;
         public EffectSetting thunderSlideEffect;
         public EffectSetting waterfallEffect;
-        public EffectSetting windEffect;
+        public EffectSetting windSlamEffect;
         public EffectSetting mudwallEffect;
         public EffectSetting muddropEffect;
 

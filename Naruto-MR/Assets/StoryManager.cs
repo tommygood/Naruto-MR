@@ -103,7 +103,7 @@ namespace AnimationNamespace
             }
         }
 
-        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward" };
+        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward", "boxing", "CastingSpell" };
 
         public void SetAnimation(string animation, bool active)
         {
@@ -193,6 +193,7 @@ public class StoryManager : MonoBehaviour
         subtitle.text = linesManager.subtitles[0];
         subtitle.color = narutoColor;
         yield return Sleep(linesManager.linesDurations[3]);
+        npcController.isAttacking = false;
         linesManager.Play("S_1");
         subtitle.text = linesManager.subtitles[1];
         subtitle.color = sasukeColor;
@@ -241,6 +242,5 @@ public class StoryManager : MonoBehaviour
         subtitle.text = linesManager.subtitles[11];
         yield return Sleep(linesManager.linesDurations[15]);
         animationManager.SetAnimation("defeated", false);
-        npcController.isAttacking = false;
     }
 }

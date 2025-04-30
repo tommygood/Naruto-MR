@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: naruto
       objectReference: {fileID: 0}
+    - target: {fileID: 2695410586857405671, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_TagString
+      value: NarutoAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 3123574053311960300, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -526,7 +530,7 @@ MonoBehaviour:
   isBuilt: 0
   surface: {fileID: 711512081}
   NPC: {fileID: 1140927754}
-  spawnOffset: {x: 0, y: 0, z: 0}
+  spawnOffset: {x: -3.2, y: 0, z: -6.7}
   maxDistance: 10
   room: {fileID: 0}
   burnMark: {fileID: 919132149155446097, guid: 296d31c39432f2a4a8ce82ec0c46e986, type: 3}
@@ -4176,7 +4180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  taijutsuThreshold: 1
+  taijutsuThreshold: 1.75
   CloseRangeThreshold: 2
   blood: 30
   currentNinjutsu: 0
@@ -4185,6 +4189,7 @@ MonoBehaviour:
   isAttacking: 0
   minDistance: 1.75
   rotationSpeed: 5
+  narutoAttack: {fileID: 0}
 --- !u!54 &1140927758
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4357,7 +4362,7 @@ MonoBehaviour:
     lifeTime: 2
     spawnPoint: {fileID: 0}
   spawnPoint: {fileID: 1154443764}
-  npc: {fileID: 1154443764}
+  npc: {fileID: 1462221609}
   launchForce: 5
 --- !u!1 &1161317477
 GameObject:
@@ -5578,9 +5583,9 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
-  windEffect:
-    prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
-    scale: {x: 0.3, y: 0.3, z: 0.3}
+  windSlamEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
   mudwallEffect:
