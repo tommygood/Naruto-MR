@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589195617}
   - component: {fileID: 589195616}
+  - component: {fileID: 589195618}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -353,6 +354,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &589195618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589195615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1224340949
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,30 +413,37 @@ MonoBehaviour:
     prefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   thunderEffect:
     prefab: {fileID: 2309121833319074514, guid: 873551b8744bc804893a229c446918e5, type: 3}
     scale: {x: 0.1, y: 0.1, z: 0.1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   waterEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
     scale: {x: 0.5, y: 0.5, z: 0.5}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 0.5, y: 0.5, z: 0.5}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   Rasengan:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
     scale: {x: 0.1, y: 0.1, z: 0.1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   mudwallEffect:
     prefab: {fileID: 1474119261660746592, guid: 7c2595f48d15044b9b505fc1f57013cf, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   muddropEffect:
     prefab: {fileID: 6447159834545318381, guid: ca2509d4176eb8840a8cbf798871a938, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   spawnPoint: {fileID: 0}
   npc: {fileID: 0}
   launchForce: 5

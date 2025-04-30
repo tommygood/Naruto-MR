@@ -4297,22 +4297,27 @@ MonoBehaviour:
     prefab: {fileID: 3946140628572098603, guid: e2b22d4a507a2134e9043c8d228eb9fd, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   thunderEffect:
     prefab: {fileID: 2309121833319074514, guid: 873551b8744bc804893a229c446918e5, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   waterEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   Rasengan:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   spawnPoint: {fileID: 1154443764}
   npc: {fileID: 1154443764}
   launchForce: 5
@@ -5323,30 +5328,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2948ade7da52427292dfc7aba99390a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireEffect:
+  fireballEffect:
     prefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
-    scale: {x: 0.3, y: 0.3, z: 0.3}
+    scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
-  thunderEffect:
+    spawnPoint: {fileID: 0}
+  thunderSlideEffect:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
-    scale: {x: 0.3, y: 0.3, z: 0.3}
-    lifeTime: 2
-  waterEffect:
+    scale: {x: 0.03, y: 0.03, z: 0.03}
+    lifeTime: 8
+    spawnPoint: {fileID: 1940413042}
+  waterfallEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
-    scale: {x: 0.3, y: 0.3, z: 0.3}
+    scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 0.3, y: 0.3, z: 0.3}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   mudwallEffect:
-    prefab: {fileID: 0}
+    prefab: {fileID: 1474119261660746592, guid: 7c2595f48d15044b9b505fc1f57013cf, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   muddropEffect:
-    prefab: {fileID: 0}
+    prefab: {fileID: 6447159834545318381, guid: 5c4536de3b31e6a41b1167c6fabb84ea, type: 3}
     scale: {x: 1, y: 1, z: 1}
-    lifeTime: 2
+    lifeTime: 10
+    spawnPoint: {fileID: 0}
   spawnPoint: {fileID: 1462221609}
   playHead: {fileID: 0}
   launchForce: 5
@@ -6436,8 +6447,8 @@ GameObject:
   - component: {fileID: 1767560432}
   - component: {fileID: 1767560433}
   m_Layer: 0
-  m_Name: fireball (3)
-  m_TagString: Untagged
+  m_Name: mudwall
+  m_TagString: Audio-mudwall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8088,8 +8099,8 @@ GameObject:
   - component: {fileID: 2128915347}
   - component: {fileID: 2128915348}
   m_Layer: 0
-  m_Name: fireball (4)
-  m_TagString: Untagged
+  m_Name: muddrop
+  m_TagString: Audio-muddrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
