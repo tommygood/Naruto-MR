@@ -6,7 +6,6 @@ using TMPro;
 public class NPCController : MonoBehaviour
 {
     public Transform player;
-    public NavMeshSurface surface;
     public float taijutsuThreshold;
     public float CloseRangeThreshold;
     public int blood = 30;
@@ -31,32 +30,23 @@ public class NPCController : MonoBehaviour
     public TextMeshProUGUI text;
 
     private float track_interval = 0.5f;
-    private float track_timer = 0f; 
+    private float track_timer = 0f;
+
+    private bool isAttacking = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (!player)
-            player = Camera.main.transform;
-
-        if (!surface)
-            Debug.LogError("NavMeshSurface is missing!");
+        if (!player) player = Camera.main.transform;
 
         agent = GetComponent<NavMeshAgent>();
-        if (!agent)
-            Debug.LogError("NavMeshAgent is missing!");
-
-        //animator = GetComponent<Animator>();
-        //if (!animator)
-        //    Debug.Log("Animator is missing!");
-
-        // surface.BuildNavMesh();
+        if (!agent) Debug.LogError("NavMeshAgent is missing!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        // check the timeer
+        // check the timer
         track_timer += Time.deltaTime;
         if (track_timer >= track_interval)
         {
@@ -66,78 +56,43 @@ public class NPCController : MonoBehaviour
         {
             return;
         }
-        
-        //float distance = Vector3.Distance(agent.transform.position, player.position);
-        //if (distance < taijutsuThreshold)
-        //{
-        //    PerformTaijutsu();
-        //    currentCoolDown = coolDown;
-        //}
-        //else
-        //{
-        //    agent.isStopped = false;
-        //    //animator.SetBool("Attack", false);
-        //    agent.destination = player.position;
-        //}
 
-        //currentCoolDown -= Time.deltaTime;
-        //if (currentCoolDown <= 0f)
-        //{
-        //    CastNinjutsu();
-
-        //}
+        if (isAttacking) return;
 
         float distance = Vector3.Distance(agent.transform.position, player.position);
-        agent.destination = new Vector3(player.position.x, transform.position.y, player.position.z);
-        text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
-        /*
-        if (distance > 2f) {
-            agent.isStopped = false;
-            agent.destination = new Vector3(player.position.x, transform.position.y, player.position.z);
-            text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
-        } else {
-            agent.isStopped = true;
-            agent.ResetPath();
-            text.text = $"Player: {player.transform.position}\n" + $"NPC: {transform.position}\n" + $"Destination: {agent.destination}\n" + $"Distance: {distance}";
+        if (distance < taijutsuThreshold) PerformTaijutsu();
+        else agent.destination = player.position;
 
-        }
-        */
+        currentCoolDown -= Time.deltaTime;
+        if (currentCoolDown <= 0f) CastNinjutsu();
     }
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    // If the NPC is hit by the player of the effect of ninjutsu
-    //    if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Effect"))
-    //    {
-    //        // ...
-    //    }
-    //}
 
     void CastNinjutsu()
     {
+        isAttacking = true;
+        agent.isStopped = true;
         float distance = Vector3.Distance(transform.position, player.transform.position);
         if (distance <= CloseRangeThreshold)
         {
             // Close range ninjutsu
-        } else
+        }
+        else
         {
             // Long range ninjutsu
         }
+        isAttacking = false;
+        agent.isStopped = false;
+        currentCoolDown = coolDown;
     }
 
     void PerformTaijutsu()
     {
+        isAttacking = true;
         agent.isStopped = true;
-        //animator.SetBool("Attack", true);
+        isAttacking = false;
+        agent.isStopped = false;
+        currentCoolDown = coolDown;
     }
-
-    //private void OnAnimatorMove()
-    //{
-    //    if (animator.GetBool("Attack") == false)
-    //    {
-    //        agent.speed = (animator.deltaPosition / Time.deltaTime).magnitude;
-    //    }
-    //}
 }
 
 public enum NinjutsuName

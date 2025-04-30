@@ -50,12 +50,10 @@ public class RoomManager : MonoBehaviour
                 Debug.Log(grandChild.gameObject.name);
                 grandChild.gameObject.AddComponent<SceneCollisionHandler>();
                 //grandChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                //if (grandChild.gameObject.name != "FLOOR_EffectMesh")
-                //{
-                //    var modifier = grandChild.gameObject.AddComponent<NavMeshModifier>();
-                //    modifier.overrideArea = true;
-                //    modifier.area = NavMesh.GetAreaFromName("Not Walkable");
-                //}
+                if (grandChild.gameObject.name != "FLOOR_EffectMesh")
+                {
+                    var modifier = grandChild.gameObject.AddComponent<NavMeshObstacle>();
+                }
             }
             
         }

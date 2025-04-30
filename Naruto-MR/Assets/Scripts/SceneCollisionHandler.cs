@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class SceneCollisionHandler : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameObject burnMark;
+    public GameObject bulletHole;
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Quaternion rot = Quaternion.LookRotation(contact.normal);
+            Vector3 pos = contact.point + contact.normal * 0.01f;
+
+            //GameObject sticker;
+            // fire ninjutsus
+            //sticker = Instantiate(burnMark, pos, rot);
+            // other ninjutsus
+            //sticker = Instantiate(bulletHole, pos, rot);
+
+            //sticker.transform.SetParent(contact.otherCollider.transform);
+        }
     }
 }
