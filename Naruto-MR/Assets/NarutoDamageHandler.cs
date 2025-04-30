@@ -13,6 +13,11 @@ public class NarutoDamageHandler : MonoBehaviour
     public Canvas worldSpaceCanvas; // Reference to the WorldSpace Canvas
     public Image healthBarFill; // Reference to the Image component inside the Canvas
 
+    public float damageInterval = 5; // Interval between damage checks
+    private float damageCount = 0; // Counter for damage taken
+
+    private bool startCountDamage = false; // Flag to start counting damage
+
     void Start()
     {
         animationManager = new AnimationNamespace.AnimationManager();
@@ -25,16 +30,35 @@ public class NarutoDamageHandler : MonoBehaviour
         {
             worldSpaceCanvas.transform.rotation = Quaternion.LookRotation(worldSpaceCanvas.transform.position - Camera.main.transform.position);
         }
+        if (startCountDamage) {
+            damageCount += Time.deltaTime;
+            if (damageCount >= damageInterval)
+            {
+                // Check if Naruto is alive and update the health bar
+                if (HP > 0)
+                {
+                    UpdateHealthBar();
+                }
+                damageCount = 0; // Reset the counter
+                startCountDamage = false;
+            }
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.name.Contains("Effect_") && collision.gameObject.tag != "naruto_attack")
+        if (damageCount > 0) {
+            return; // Ignore if damage is not taken
+        }
+        
+        if (other.name.Contains("Effect_") && other.tag != "naruto_attack")
         {
-            Debug.Log("NNN Naruto is hurt!" + collision.gameObject.name + " " + collision.gameObject.tag);
+            Debug.Log("NNN Naruto is hurt!" + other.name + " " + other.tag);
             StartCoroutine(playDropDamageAnimation());
             TakeDamage(10);
+            startCountDamage = true; // Start counting damage
         }
+
     }
 
     private void TakeDamage(int amount)
