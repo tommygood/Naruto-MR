@@ -34,6 +34,10 @@ TagManager:
   - N_5
   - N_6
   - N_7
+  - thousand_birds
+  - Audio-waterfall
+  - Audio-thousand_birds
+  - Audio-thunderSlide
   layers:
   - Default
   - TransparentFX
