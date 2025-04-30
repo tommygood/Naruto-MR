@@ -87,6 +87,12 @@ public class NPCController : MonoBehaviour
     IEnumerator CastNinjutsu()
     {
         isAttacking = true;
+        // check agent is active Stop" can only be called on an active agent that has been placed on a NavMesh.
+        if (!agent.isOnNavMesh)
+        {
+            Debug.LogWarning("NavMeshAgent is not active or enabled!");
+            yield break;
+        }
         agent.isStopped = true;
         float distance = Vector3.Distance(transform.position, player.transform.position);
         Ninjutsu currentNinjutsu;

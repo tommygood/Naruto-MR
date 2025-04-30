@@ -47,11 +47,11 @@ public class NinjutsuGesture
         Effect effect = GameObject.FindFirstObjectByType<Effect>();
 
         // find the object from effect class by the ninjutsu name
-        ninjutusu_particle = effect.GetType().GetField($"{atrribute}Effect").GetValue(effect) as EffectSetting;
+        ninjutusu_particle = effect.GetType().GetField($"{name}Effect").GetValue(effect) as EffectSetting;
         if (ninjutusu_particle != null)
         {
             
-            effect.SpawnEffect(ninjutusu_particle);
+            effect.SpawnEffect(ninjutusu_particle, name);
             AudioManager audioManager = new AudioManager();
             // enable with name of the Audio-<ninjutsu_name>
             audioManager.enableAudio($"Audio-{name}");
@@ -129,8 +129,10 @@ public class HandJointTracker : MonoBehaviour
         {
             new NinjutsuGesture { name = "fireball", atrribute = "fire", gestures = new string[] { "Mi", "Saru", "I" }, current_gestures = new string[] { "Mi", "Saru", "I" }, chakra_cost = 20 },
             new NinjutsuGesture { name = "waterfall", atrribute = "water", gestures = new string[] { "Tora", "Ne", "Saru", "I" }, current_gestures =  new string[] { "Tora", "Saru", "Ne", "I" }, chakra_cost = 25 },
-            new NinjutsuGesture { name = "thunderSlide", atrribute = "thunder", gestures = new string[] { "Saru", "Ne" }, current_gestures = new string[] { "Ne", "I" }, chakra_cost = 15 },
-            new NinjutsuGesture { name = "windSlam", atrribute = "wind", gestures = new string[] { "Mi", "I", "Ne" }, current_gestures = new string[] { "Uma", "I" }, chakra_cost = 10 },
+            new NinjutsuGesture { name = "thunderSlide", atrribute = "thunder", gestures = new string[] { "Saru", "Ne" }, current_gestures = new string[] { "Saru", "Ne" }, chakra_cost = 15 },
+            new NinjutsuGesture { name = "windSlam", atrribute = "wind", gestures = new string[] { "Mi", "I", "Ne" }, current_gestures = new string[] {"Mi", "I", "Ne" }, chakra_cost = 10 },
+            new NinjutsuGesture { name = "mudwall", atrribute = "mud", gestures = new string[] { "Ne", "Tora", "Mi" }, current_gestures = new string[] { "Ne", "Tora", "Mi" }, chakra_cost = 30 },
+            new NinjutsuGesture { name = "muddrop", atrribute = "mud", gestures = new string[] { "I", "Tora" }, current_gestures = new string[] { "I", "Tora" }, chakra_cost = 30 },
         };
         // set the particle system for the ninjutsu gesture
         //SetNinjutsuParticle();

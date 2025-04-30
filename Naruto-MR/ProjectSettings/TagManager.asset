@@ -38,6 +38,8 @@ TagManager:
   - Audio-waterfall
   - Audio-thousand_birds
   - Audio-thunderSlide
+  - Audio-mudwall
+  - Audio-muddrop
   layers:
   - Default
   - TransparentFX

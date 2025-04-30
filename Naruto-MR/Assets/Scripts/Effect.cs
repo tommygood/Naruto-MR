@@ -8,13 +8,15 @@ namespace EffectNamespace
         public GameObject prefab;
         public Vector3 scale = Vector3.one;
         public float lifeTime = 2f; // 秒數
+
+        public Transform spawnPoint; // 發射點
     }
 
     public class Effect : MonoBehaviour
     {
-        public EffectSetting fireEffect;
-        public EffectSetting thunderEffect;
-        public EffectSetting waterEffect;
+        public EffectSetting fireballEffect;
+        public EffectSetting thunderSlideEffect;
+        public EffectSetting waterfallEffect;
         public EffectSetting windEffect;
         public EffectSetting mudwallEffect;
         public EffectSetting muddropEffect;
@@ -25,12 +27,17 @@ namespace EffectNamespace
 
         public float launchForce = 5f;
 
-        public void SpawnEffect(EffectSetting setting)
+        public void SpawnEffect(EffectSetting setting, string effect_name)
         {
             if (spawnPoint == null)
             {
                 spawnPoint = transform;
                 Debug.LogWarning("spawnPoint 未設定，已自動設為當前物件");
+            }
+
+            if (setting.spawnPoint != null)
+            {
+                spawnPoint = setting.spawnPoint;
             }
 
             if (playHead == null)
@@ -58,6 +65,19 @@ namespace EffectNamespace
 
                 // 設定特效自動銷毀
                 Destroy(effect, setting.lifeTime);
+
+                if (effect_name == "thunderSlide") {
+                    // add the effect to the sub object of the main camera
+                    GameObject mainCamera = GameObject.FindGameObjectWithTag("LeftHandAnchor");
+                    if (mainCamera != null)
+                    {
+                        effect.transform.SetParent(mainCamera.transform);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("未找到主攝影機物件，特效不會自動銷毀！");
+                    }
+                }
 
                 Debug.Log($"生成特效：{setting.prefab.name}");
             }
