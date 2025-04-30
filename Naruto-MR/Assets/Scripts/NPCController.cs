@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
 using TMPro;
+using System.Collections;
+using UnityEngine.UIElements;
 
 public class NPCController : MonoBehaviour
 {
@@ -62,46 +64,97 @@ public class NPCController : MonoBehaviour
 
         if (isAttacking) return;
 
-        Vector3 directionToPlayer = player.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        
-        float distance = Vector3.Distance(agent.transform.position, player.position);
-        if (distance < taijutsuThreshold) PerformTaijutsu();
-        else {
-            Vector3 newPos = player.position;
-            newPos.y = agent.transform.position.y;
-            newPos.x += player.forward.x * minDistance;
-            newPos.z += player.forward.z * minDistance;
-            agent.SetDestination(newPos);
+        // NPC will look at the player
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
+        // Decrement the timer
         currentCoolDown -= Time.deltaTime;
-        if (currentCoolDown <= 0f) CastNinjutsu();
+
+        float distance = Vector3.Distance(agent.transform.position, player.position);
+
+        // Perform taijutsu if the player is close enough
+        if (distance < taijutsuThreshold && currentCoolDown >= 0)
+        {
+            StartCoroutine(PerformTaijutsu());
+            return;
+        }
+
+
+        // When the timer reaches 0, cast ninjutsu
+        if (currentCoolDown <= 0f)
+        {
+            StartCoroutine(CastNinjutsu());
+            return;
+        }
+
+        // NPC will run toward the player or run away from the player
+        Vector3 destination = player.position - (player.position - transform.position).normalized * minDistance;
+        destination.y = agent.transform.position.y;
+        agent.SetDestination(destination);
     }
 
-    void CastNinjutsu()
+    IEnumerator CastNinjutsu()
     {
         isAttacking = true;
         agent.isStopped = true;
         float distance = Vector3.Distance(transform.position, player.transform.position);
+        Ninjutsu currentNinjutsu;
         if (distance <= CloseRangeThreshold)
         {
             // Close range ninjutsu
+            currentNinjutsu = Rasengan;
+            Debug.Log("Rasengan");
         }
         else
         {
             // Long range ninjutsu
+            int i = Random.Range(0, 6);
+            switch (i)
+            {
+                case 0:
+                    currentNinjutsu = Fireball;
+                    Debug.Log("Fireball");
+                    break;
+                case 1:
+                    currentNinjutsu = Raikiri;
+                    Debug.Log("Raikiri");
+                    break;
+                case 2:
+                    currentNinjutsu = GalePalm;
+                    Debug.Log("GalePalm");
+                    break;
+                case 3:
+                    currentNinjutsu = RockShelterCollapse;
+                    Debug.Log("RockShelterCollapse");
+                    break;
+                case 4:
+                    currentNinjutsu = Waterfall;
+                    Debug.Log("Waterfall");
+                    break;
+                case 5:
+                    currentNinjutsu = PhoenixFire;
+                    Debug.Log("PhoenixFire");
+                    break;
+            }
         }
+        yield return new WaitForSeconds(3);
         isAttacking = false;
         agent.isStopped = false;
         currentCoolDown = coolDown;
     }
 
-    void PerformTaijutsu()
+    IEnumerator PerformTaijutsu()
     {
         isAttacking = true;
         agent.isStopped = true;
+        yield return new WaitForSeconds(3);
         isAttacking = false;
         agent.isStopped = false;
         currentCoolDown = coolDown;
