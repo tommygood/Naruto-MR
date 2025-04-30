@@ -505,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mruk: {fileID: 817220592}
   controller: 0
-  modelPrefab: {fileID: 2328163685322656021, guid: 7c2595f48d15044b9b505fc1f57013cf, type: 3}
+  modelPrefab: {fileID: 6345467796803054852, guid: fea66eddbe7874ce4bef2c48bcae7179, type: 3}
 --- !u!1 &96200834
 GameObject:
   m_ObjectHideFlags: 0
@@ -4176,6 +4176,14 @@ MonoBehaviour:
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 0.3, y: 0.3, z: 0.3}
+    lifeTime: 2
+  mudwallEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+  muddropEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
   spawnPoint: {fileID: 1895288259}
   playHead: {fileID: 0}

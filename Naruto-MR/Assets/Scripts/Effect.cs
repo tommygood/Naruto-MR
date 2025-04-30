@@ -16,6 +16,9 @@ namespace EffectNamespace
         public EffectSetting thunderEffect;
         public EffectSetting waterEffect;
         public EffectSetting windEffect;
+        public EffectSetting mudwallEffect;
+        public EffectSetting muddropEffect;
+
 
         public Transform spawnPoint; // 發射點
         public Transform playHead; // 頭盔

@@ -360,6 +360,14 @@ MonoBehaviour:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
     scale: {x: 0.1, y: 0.1, z: 0.1}
     lifeTime: 2
+  mudwallEffect:
+    prefab: {fileID: 1474119261660746592, guid: 7c2595f48d15044b9b505fc1f57013cf, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+  muddropEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
   spawnPoint: {fileID: 0}
   npc: {fileID: 0}
   launchForce: 5

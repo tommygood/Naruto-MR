@@ -1844,6 +1844,7 @@ MonoBehaviour:
     - 5
     - 5
     - 5
+  currentLevel: 1
 --- !u!4 &443436555
 Transform:
   m_ObjectHideFlags: 0
@@ -7138,6 +7139,14 @@ MonoBehaviour:
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 0.3, y: 0.3, z: 0.3}
+    lifeTime: 2
+  mudwallEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+  muddropEffect:
+    prefab: {fileID: 0}
+    scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
   spawnPoint: {fileID: 1462221609}
   playHead: {fileID: 0}

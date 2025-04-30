@@ -7,6 +7,9 @@ public class NpcAttack : MonoBehaviour
     public EffectNamespace.EffectSetting waterEffect;
     public EffectNamespace.EffectSetting windEffect;
     public EffectNamespace.EffectSetting Rasengan;
+    public EffectNamespace.EffectSetting mudwallEffect;
+    public EffectNamespace.EffectSetting muddropEffect;
+
 
     public Transform spawnPoint; // 發射點
     public Transform npc;        // 目標 NPC
@@ -39,6 +42,28 @@ public class NpcAttack : MonoBehaviour
         {
             Debug.Log("螺旋丸");
             SpawnEffect(Rasengan);
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            Debug.Log("土牆特效");
+            
+            if (mudwallEffect != null && mudwallEffect.prefab != null)
+            {
+                Vector3 forward = transform.forward;
+                Vector3 spawnPos = transform.position + forward * 5f;
+                GameObject wall = Instantiate(mudwallEffect.prefab, spawnPos, Quaternion.identity);
+                wall.transform.localScale = mudwallEffect.scale;
+                wall.AddComponent<MudWallController>();
+            }
+            else
+            {
+                Debug.LogWarning("mudwallEffect 未設定！");
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log("土掉下特效");
+            SpawnEffect(muddropEffect);
         }
     }
 
