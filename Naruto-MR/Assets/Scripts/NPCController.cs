@@ -37,7 +37,7 @@ public class NPCController : MonoBehaviour
     private bool isAttacking = false;
 
     public float minDistance = 1.75f;
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 10f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,17 +51,6 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // check the timer
-        track_timer += Time.deltaTime;
-        if (track_timer >= track_interval)
-        {
-            track_timer = 0f;
-        }
-        else 
-        {
-            return;
-        }
-
         if (isAttacking) return;
 
         // NPC will look at the player
@@ -76,28 +65,28 @@ public class NPCController : MonoBehaviour
 
         // Decrement the timer
         currentCoolDown -= Time.deltaTime;
+        Debug.Log("Current Cool Down: " + currentCoolDown);
 
         float distance = Vector3.Distance(agent.transform.position, player.position);
 
         // Perform taijutsu if the player is close enough
         if (distance < taijutsuThreshold && currentCoolDown >= 0)
         {
+            Debug.Log("xxx Performing Taijutsu!");
             StartCoroutine(PerformTaijutsu());
-            return;
         }
-
-
         // When the timer reaches 0, cast ninjutsu
-        if (currentCoolDown <= 0f)
+        else if (currentCoolDown <= 0f)
         {
+            Debug.Log("xxx Casting Ninjutsu!");
             StartCoroutine(CastNinjutsu());
-            return;
         }
-
         // NPC will run toward the player or run away from the player
-        Vector3 destination = player.position - (player.position - transform.position).normalized * minDistance;
-        destination.y = agent.transform.position.y;
-        agent.SetDestination(destination);
+        else {
+            Vector3 destination = player.position - (player.position - transform.position).normalized * minDistance;
+            destination.y = agent.transform.position.y;
+            agent.SetDestination(destination);
+        }
     }
 
     IEnumerator CastNinjutsu()
@@ -110,7 +99,7 @@ public class NPCController : MonoBehaviour
         {
             // Close range ninjutsu
             currentNinjutsu = Rasengan;
-            Debug.Log("Rasengan");
+            Debug.Log("xxx Rasengan");
         }
         else
         {
@@ -120,27 +109,27 @@ public class NPCController : MonoBehaviour
             {
                 case 0:
                     currentNinjutsu = Fireball;
-                    Debug.Log("Fireball");
+                    Debug.Log("xxx Fireball");
                     break;
                 case 1:
                     currentNinjutsu = Raikiri;
-                    Debug.Log("Raikiri");
+                    Debug.Log("xxx Raikiri");
                     break;
                 case 2:
                     currentNinjutsu = GalePalm;
-                    Debug.Log("GalePalm");
+                    Debug.Log("xxx GalePalm");
                     break;
                 case 3:
                     currentNinjutsu = RockShelterCollapse;
-                    Debug.Log("RockShelterCollapse");
+                    Debug.Log("xxx RockShelterCollapse");
                     break;
                 case 4:
                     currentNinjutsu = Waterfall;
-                    Debug.Log("Waterfall");
+                    Debug.Log("xxx Waterfall");
                     break;
                 case 5:
                     currentNinjutsu = PhoenixFire;
-                    Debug.Log("PhoenixFire");
+                    Debug.Log("xxx PhoenixFire");
                     break;
             }
         }
@@ -154,7 +143,7 @@ public class NPCController : MonoBehaviour
     {
         isAttacking = true;
         agent.isStopped = true;
-        Debug.Log("Taijutsu");
+        Debug.Log("xxx Taijutsu");
         yield return new WaitForSeconds(3);
         isAttacking = false;
         agent.isStopped = false;
