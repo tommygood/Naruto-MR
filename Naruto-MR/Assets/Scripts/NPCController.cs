@@ -29,7 +29,7 @@ public class NPCController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
 
     public float minDistance = 1.75f;
     public float rotationSpeed = 10f;
@@ -38,6 +38,7 @@ public class NPCController : MonoBehaviour
     void Start()
     {
         if (!player) player = Camera.main.transform;
+        currentCoolDown = coolDown;
 
         agent = GetComponent<NavMeshAgent>();
         if (!agent) Debug.LogError("NavMeshAgent is missing!");
@@ -142,6 +143,12 @@ public class NPCController : MonoBehaviour
 
     IEnumerator PerformTaijutsu()
     {
+        // check agent is active Stop" can only be called on an active agent that has been placed on a NavMesh.
+        if (!agent.isOnNavMesh)
+        {
+            Debug.LogWarning("NavMeshAgent is not active or enabled!");
+            yield break;
+        }
         isAttacking = true;
         agent.isStopped = true;
         Debug.Log("xxx Taijutsu");

@@ -95,12 +95,15 @@ public class StoryManager : MonoBehaviour
     public LinesNamespace.LinesManager linesManager;
     public AnimationNamespace.AnimationManager animationManager;
 
+    private NPCController npcController;
+
     public int currentLevel = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         linesManager = new LinesNamespace.LinesManager();
         animationManager = new AnimationNamespace.AnimationManager();
+        npcController = FindAnyObjectByType<NPCController>();
         if (currentLevel == 1)
         {
             StartCoroutine(Level1Init());
@@ -141,7 +144,6 @@ public class StoryManager : MonoBehaviour
             Debug.LogError("Failed to find the naruto object");
         }
         linesManager.Play("N_0_1");
-        Debug.Log("Play the first line: N_0_1 PP");
         yield return Sleep(linesManager.linesDurations[0]);
         linesManager.Play("S_0_1");
         yield return Sleep(linesManager.linesDurations[1]);
@@ -153,6 +155,7 @@ public class StoryManager : MonoBehaviour
 
     private IEnumerator Level2Init()
     {
+        npcController.isAttacking = true;
         linesManager.Play("N_1");
         yield return Sleep(linesManager.linesDurations[3]);
         linesManager.Play("S_1");
@@ -183,5 +186,6 @@ public class StoryManager : MonoBehaviour
         linesManager.Play("N_7");
         yield return Sleep(linesManager.linesDurations[15]);
         animationManager.SetAnimation("defeated", false);
+        npcController.isAttacking = false;
     }
 }

@@ -14,13 +14,17 @@ public class RoomManager : MonoBehaviour
     public NavMeshSurface surface;
     public GameObject NPC;
 
-    public Vector3 spawnPosition;
+    public Vector3 spawnOffset;
     public float maxDistance;
 
     public MRUKRoom room;
+    
+    public GameObject burnMark;
+    public GameObject bulletHole;
 
     private void spawnNPC()
     {
+        Vector3 spawnPosition = room.gameObject.transform.position + spawnOffset;
         NavMeshHit hit;
         if (NavMesh.SamplePosition(spawnPosition, out hit, maxDistance, NavMesh.AllAreas))
         {
@@ -49,6 +53,9 @@ public class RoomManager : MonoBehaviour
             {
                 Debug.Log(grandChild.gameObject.name);
                 grandChild.gameObject.AddComponent<SceneCollisionHandler>();
+                var handler = grandChild.gameObject.GetComponent<SceneCollisionHandler>();
+                handler.burnMark = burnMark;
+                handler.bulletHole = bulletHole;
                 //grandChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
                 if (grandChild.gameObject.name != "FLOOR_EffectMesh")
                 {

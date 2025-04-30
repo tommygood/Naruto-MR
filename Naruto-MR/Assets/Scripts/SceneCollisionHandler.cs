@@ -11,7 +11,7 @@ public class SceneCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision!");
+        Debug.Log("Collision!" + collision.gameObject.name);
         if (!collision.gameObject.name.Contains("Effect_")) return;
 
         Vector3 point = Vector3.zero;
@@ -31,7 +31,7 @@ public class SceneCollisionHandler : MonoBehaviour
         GameObject sticker;
 
         // Fireball
-        if (collision.gameObject.name.Contains("Effect_07_OneHandSmash"))
+        if (collision.gameObject.name.Contains("Effect_07_SmashParticle"))
         {
             sticker = Instantiate(burnMark, pos, rot);
             Debug.Log("Fireball");
@@ -44,6 +44,7 @@ public class SceneCollisionHandler : MonoBehaviour
             Debug.Log("Other ninjutsus");
         }
 
+        sticker.transform.localScale *= 0.3f;
         sticker.transform.SetParent(transform);
         
         StartCoroutine(DelayedDestroy(sticker));

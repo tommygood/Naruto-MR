@@ -466,22 +466,27 @@ MonoBehaviour:
     prefab: {fileID: 3946140628572098603, guid: e2b22d4a507a2134e9043c8d228eb9fd, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   thunderEffect:
     prefab: {fileID: 2309121833319074514, guid: 873551b8744bc804893a229c446918e5, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   waterEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   windEffect:
     prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   Rasengan:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
+    spawnPoint: {fileID: 0}
   spawnPoint: {fileID: 239564460}
   npc: {fileID: 239564460}
   launchForce: 5
@@ -2630,7 +2635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a67656d81da46afb8f0f0f078187eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1008402434}
+  player: {fileID: 548316004}
   prefabA: {fileID: 3897517431864121581, guid: c561dca5dae364aab9645496f7c04946, type: 3}
   uiCanvas: {fileID: 249689468}
   textUI: {fileID: 0}

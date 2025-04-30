@@ -53,6 +53,7 @@ public class FinalControl : MonoBehaviour
 
         Debug.Log("開始緩慢掉落 Prefab A");
 
+        float fallSpeed = 0.001f; // 每秒下降 0.2 公尺
         bool hasLanded = false;
 
         while (!hasLanded)
