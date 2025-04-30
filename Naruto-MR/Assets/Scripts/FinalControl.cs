@@ -8,6 +8,7 @@ public class FinalControl : MonoBehaviour
     public GameObject prefabA;      // 要掉落的物件
     public Canvas uiCanvas;         // UI Canvas
     public Text textUI;             // 顯示文字的 UI
+    public float fallSpeed = 0.2f;  // 掉落速度（每秒多少公尺）
 
     private bool hasDropped = false;
 
@@ -52,12 +53,10 @@ public class FinalControl : MonoBehaviour
 
         Debug.Log("開始緩慢掉落 Prefab A");
 
-        float fallSpeed = 0.01f; // 每秒下降 0.2 公尺
         bool hasLanded = false;
 
         while (!hasLanded)
         {
-            // 檢查腳下是否碰到地板
             if (Physics.Raycast(obj.transform.position, Vector3.down, out RaycastHit hit, 0.1f))
             {
                 Debug.Log("Prefab A 已落地");
