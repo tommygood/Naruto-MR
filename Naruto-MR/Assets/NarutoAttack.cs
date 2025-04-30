@@ -1,4 +1,6 @@
 using UnityEngine;
+using AnimationNamespace;
+using System.Collections;
 
 public class NarutoAttack : MonoBehaviour
 {
@@ -13,14 +15,17 @@ public class NarutoAttack : MonoBehaviour
 
     public float launchForce = 5f;
 
+    AnimationManager animationManager;
+
     void Start()
     {
+        animationManager = new AnimationNamespace.AnimationManager();
         if (spawnPoint == null)
         {
             spawnPoint = transform;
             Debug.LogError("spawnPoint 未設定，已自動設為當前物件");
         }
-        SpawnEffect(fireEffect);
+        
     }
 
     void Update()
@@ -28,11 +33,17 @@ public class NarutoAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.Log("火特效");
-            SpawnEffect(fireEffect);
+            StartCoroutine(LongDistanceAttack(fireEffect, "clapping"));
         }
     }
 
-    void SpawnEffect(EffectNamespace.EffectSetting setting)
+    // sleep for seconds
+    private IEnumerator Sleep(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
+
+    public IEnumerator LongDistanceAttack(EffectNamespace.EffectSetting setting, string animationName)
     {
         if (spawnPoint == null)
         {
@@ -42,6 +53,8 @@ public class NarutoAttack : MonoBehaviour
 
         if (setting != null && setting.prefab != null)
         {
+            animationManager.SetAnimation("clapping", true);
+            yield return Sleep(5f);
             GameObject effect = Instantiate(setting.prefab, spawnPoint.position, Quaternion.identity);
 
             // 設定特效大小
@@ -50,6 +63,7 @@ public class NarutoAttack : MonoBehaviour
             // 朝向 NPC 發射
             if (npc != null)
             {
+                
                 Vector3 direction = (npc.position - spawnPoint.position).normalized;
                 effect.transform.rotation = Quaternion.LookRotation(direction);
 
@@ -58,7 +72,9 @@ public class NarutoAttack : MonoBehaviour
                 {
                     rb.AddForce(direction * launchForce, ForceMode.Impulse);
                 }
+                
             }
+            animationManager.SetAnimation("clapping", false);
 
             // 設定特效自動銷毀
             Destroy(effect, setting.lifeTime);
@@ -69,6 +85,8 @@ public class NarutoAttack : MonoBehaviour
         {
             Debug.LogWarning("未指定特效 prefab！");
         }
+        yield return null;
     }
+    
 }
 
