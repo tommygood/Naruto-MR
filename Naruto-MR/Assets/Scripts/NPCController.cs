@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Unity.AI.Navigation;
 using TMPro;
 using System.Collections;
-using UnityEngine.UIElements;
 
 public class NPCController : MonoBehaviour
 {
@@ -30,9 +28,6 @@ public class NPCController : MonoBehaviour
     private float currentCoolDown;
 
     public TextMeshProUGUI text;
-
-    private float track_interval = 0.5f;
-    private float track_timer = 0f;
 
     private bool isAttacking = false;
 
@@ -65,7 +60,7 @@ public class NPCController : MonoBehaviour
 
         // Decrement the timer
         currentCoolDown -= Time.deltaTime;
-        Debug.Log("Current Cool Down: " + currentCoolDown);
+        //Debug.Log("Current Cool Down: " + currentCoolDown);
 
         float distance = Vector3.Distance(agent.transform.position, player.position);
 
