@@ -4238,6 +4238,8 @@ MonoBehaviour:
   currentNinjutsu: 0
   coolDown: 5
   text: {fileID: 0}
+  minDistance: 1.75
+  rotationSpeed: 5
 --- !u!195 &891776299
 NavMeshAgent:
   m_ObjectHideFlags: 0
