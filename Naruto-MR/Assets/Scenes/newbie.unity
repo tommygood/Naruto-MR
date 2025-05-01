@@ -127,18 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -238,6 +226,18 @@ PrefabInstance:
     - target: {fileID: 3123574053311960300, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -415,6 +415,7 @@ MonoBehaviour:
   worldSpaceCanvas: {fileID: 1665175710}
   healthBarFill: {fileID: 1986621396}
   damageInterval: 5
+  startCountDamage: 0
   qq_naruto: {fileID: 0}
   origin_naruto: {fileID: 0}
 --- !u!54 &61400863
@@ -2481,7 +2482,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3090,7 +3091,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
