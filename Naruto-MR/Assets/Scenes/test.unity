@@ -180,6 +180,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140927762}
     m_Modifications:
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -270,7 +282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_TagString
@@ -283,18 +295,6 @@ PrefabInstance:
     - target: {fileID: 3123574053311960300, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6090,7 +6090,7 @@ MonoBehaviour:
     lifeTime: 2
     spawnPoint: {fileID: 0}
   windSlamEffect:
-    prefab: {fileID: 0}
+    prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
@@ -7191,6 +7191,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140927762}
     m_Modifications:
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8353535606260669508, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
       propertyPath: m_TagString
       value: NarutoLeftHand
@@ -7231,29 +7243,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
-=======
-    - target: {fileID: 915620496929744143, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
->>>>>>> 7b2d311efce1b840af69c94ec1b2d927bb3b1e5c
-      propertyPath: m_Name
-      value: qq_naruto
-      objectReference: {fileID: 0}
     - target: {fileID: 915620496929744143, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 915620496929744143, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_TagString
@@ -7310,6 +7302,10 @@ PrefabInstance:
     - target: {fileID: 1800702098628815774, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
+      propertyPath: m_Name
+      value: qq_naruto
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

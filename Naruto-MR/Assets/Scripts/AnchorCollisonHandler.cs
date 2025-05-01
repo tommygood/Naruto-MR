@@ -29,7 +29,7 @@ public class AnchorCollisionHandler : MonoBehaviour
                 // 計數+1
                 destroyedCount++;
 
-                if (destroyedCount == 4)
+                if (destroyedCount == 6)
                 {
                     Debug.Log("新手村結束！");
                     // use SceneLoader to load the next scene

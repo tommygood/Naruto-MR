@@ -94,8 +94,9 @@ public class NarutoDamageHandler : MonoBehaviour
             {
                 StartCoroutine(BGMManager.Instance.FadeOut());
                 qq_naruto.SetActive(true); // Show the QQ Naruto prefab
-                origin_naruto.SetActive(false); // Hide the original Naruto prefab
                 StartCoroutine(BGMManager.Instance.FadeIn(2));
+                origin_naruto.SetActive(false); // Hide the original Naruto prefab
+                
             }
 
         }

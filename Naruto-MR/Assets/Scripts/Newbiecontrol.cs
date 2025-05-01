@@ -20,6 +20,7 @@ public class NewbieControl : MonoBehaviour
         Debug.Log("NewbieControl Start()");
         EnableMRUKManager();
         CreateTargetsBasedOnName("TABLE_EffectMesh");
+        CreateTargetsBasedOnName("WINDOW_FRAME_EffectMesh");
     }
 
     void Update()
@@ -115,25 +116,22 @@ public class NewbieControl : MonoBehaviour
     {
     string[] texturePaths = { "Image/a", "Image/b", "Image/c", "Image/d", "Image/e", "Image/f" };
 
-    GameObject[] windows = GameObject.FindGameObjectsWithTag("WINDOW"); // 建議用 Tag 管理
-    if (windows.Length == 0)
-    {
-        // 若沒有使用 Tag，可用名稱搜尋
-        List<GameObject> namedWindows = new();
-        foreach (var obj in FindObjectsOfType<GameObject>())
-        {
-            if (obj.name == "WINDOW")
-            {
-                namedWindows.Add(obj);
-            }
-        }
-        windows = namedWindows.ToArray();
+    var potentialTargets = new List<GameObject>();
+    var windows = FindObjectsOfType<GameObject>();
+    string targetName = "WINDOW_FRAME_EffectMesh";
 
-        if (windows.Length == 0)
+    foreach (var obj in windows)
+    {
+        if (obj.name.Equals(targetName))
         {
-            Debug.LogWarning("找不到任何名為 WINDOW 的物件");
-            return;
+            potentialTargets.Add(obj);
         }
+    }
+
+    if (potentialTargets.Count == 0)
+    {
+        Debug.LogWarning($"未找到 {targetName}");
+        return;
     }
 
     int textureIndex = 0;
