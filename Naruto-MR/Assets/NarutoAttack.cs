@@ -34,6 +34,9 @@ public class NarutoAttack : MonoBehaviour
         {
             Debug.Log("火特效");
             StartCoroutine(LongDistanceAttack(fireEffect, "clapping"));
+        } else if (Input.GetKeyDown(KeyCode.X)) {
+            Debug.Log("Rasengan")
+            StartCoroutine(LongDistanceAttack(fireEffect, "CastingSpell"));
         }
     }
 
