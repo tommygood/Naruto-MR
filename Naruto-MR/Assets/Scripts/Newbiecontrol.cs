@@ -19,8 +19,8 @@ public class NewbieControl : MonoBehaviour
     {
         Debug.Log("NewbieControl Start()");
         EnableMRUKManager();
-        CreateTargetsBasedOnName("TABLE_EffectMesh");
-        CreateImageRowOnWallFace("PLANT");
+        CreateTargetsBasedOnName("BED_EffectMesh");
+        CreateImageRowOnWallFace("WINDOW_FRAM");
     }
 
     void Update()
@@ -29,7 +29,7 @@ public class NewbieControl : MonoBehaviour
         {
             Debug.Log("Creating anchors...");
             EnableMRUKManager();
-            CreateTargetsBasedOnName("－                                ");
+            CreateTargetsBasedOnName("BED_EffectMesh");
         }
     }
 
@@ -107,7 +107,7 @@ public class NewbieControl : MonoBehaviour
         Debug.Log("Room bound");
 
         // 一進入自動建立圖片
-        CreateImageRowOnWallFace("PLANT");
+        CreateImageRowOnWallFace("WINDOW_FRAME");
     }
 
     private void CreateImageRowOnWallFace(string targetName)
@@ -158,10 +158,10 @@ public class NewbieControl : MonoBehaviour
             GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
             quad.GetComponent<Renderer>().material = mat;
 
-            Vector3 forward = target.transform.forward;
-            quad.transform.position = target.transform.position + forward * 0.05f;
+            Vector3 forward = -target.transform.forward;
+            quad.transform.position = target.transform.position - forward * 0.05f;
             quad.transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
-            quad.transform.localScale = Vector3.one * 0.8f;
+            quad.transform.localScale = Vector3.one * 1.5F;
 
             quad.transform.SetParent(target.transform);
 

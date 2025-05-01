@@ -509,7 +509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &249689466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2739,7 +2739,7 @@ MonoBehaviour:
   prefabA: {fileID: 3897517431864121581, guid: c561dca5dae364aab9645496f7c04946, type: 3}
   uiCanvas: {fileID: 249689468}
   textUI: {fileID: 0}
-  fallSpeed: 0.2
+  fallSpeed: 0.08
 --- !u!4 &1069339543 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3340838444492905394, guid: 89e80c47615e4f043926d66492d3ca5f, type: 3}
@@ -3963,6 +3963,7 @@ MonoBehaviour:
   worldSpaceCanvas: {fileID: 920428827}
   healthBarFill: {fileID: 928286489}
   damageInterval: 5
+  startCountDamage: 0
   qq_naruto: {fileID: 0}
   origin_naruto: {fileID: 0}
 --- !u!54 &1547875096

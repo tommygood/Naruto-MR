@@ -3262,6 +3262,83 @@ Transform:
   - {fileID: 1106520655}
   m_Father: {fileID: 734883134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1194958797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1194958799}
+  - component: {fileID: 1194958798}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1194958798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194958797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2948ade7da52427292dfc7aba99390a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballEffect:
+    prefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+    spawnPoint: {fileID: 0}
+  thunderSlideEffect:
+    prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
+    scale: {x: 0.03, y: 0.03, z: 0.03}
+    lifeTime: 8
+    spawnPoint: {fileID: 0}
+  waterfallEffect:
+    prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+    spawnPoint: {fileID: 0}
+  windSlamEffect:
+    prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+    spawnPoint: {fileID: 0}
+  mudwallEffect:
+    prefab: {fileID: 1474119261660746592, guid: 7c2595f48d15044b9b505fc1f57013cf, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 2
+    spawnPoint: {fileID: 0}
+  muddropEffect:
+    prefab: {fileID: 6447159834545318381, guid: 5c4536de3b31e6a41b1167c6fabb84ea, type: 3}
+    scale: {x: 1, y: 1, z: 1}
+    lifeTime: 10
+    spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  playHead: {fileID: 0}
+  launchForce: 5
+--- !u!4 &1194958799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194958797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12128568, y: 0.9550159, z: 0.34741473}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1205919232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,12 +4480,12 @@ GameObject:
   - component: {fileID: 1565614272}
   - component: {fileID: 1565614271}
   m_Layer: 0
-  m_Name: EffectManager
+  m_Name: EffectManager_BAK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1565614271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5753,3 +5830,4 @@ SceneRoots:
   - {fileID: 443436555}
   - {fileID: 1161317479}
   - {fileID: 555332681}
+  - {fileID: 1194958799}
