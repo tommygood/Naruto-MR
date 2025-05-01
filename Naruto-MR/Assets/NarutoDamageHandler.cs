@@ -18,6 +18,10 @@ public class NarutoDamageHandler : MonoBehaviour
 
     private bool startCountDamage = false; // Flag to start counting damage
 
+    public GameObject qq_naruto; // Reference to the Naruto GameObject
+
+    public GameObject origin_naruto; // Reference to the original Naruto GameObject
+
     void Start()
     {
         animationManager = new AnimationNamespace.AnimationManager();
@@ -30,7 +34,8 @@ public class NarutoDamageHandler : MonoBehaviour
         {
             worldSpaceCanvas.transform.rotation = Quaternion.LookRotation(worldSpaceCanvas.transform.position - Camera.main.transform.position);
         }
-        if (startCountDamage) {
+        if (startCountDamage)
+        {
             damageCount += Time.deltaTime;
             if (damageCount >= damageInterval)
             {
@@ -47,10 +52,11 @@ public class NarutoDamageHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (damageCount > 0) {
+        if (damageCount > 0)
+        {
             return; // Ignore if damage is not taken
         }
-        
+
         if (other.name.Contains("Effect_") && other.tag != "naruto_attack")
         {
             Debug.Log("NNN Naruto is hurt!" + other.name + " " + other.tag);
@@ -73,8 +79,21 @@ public class NarutoDamageHandler : MonoBehaviour
         if (HP <= 0)
         {
             Debug.Log("Q Naruto is defeated!");
-            // FIXME: drop a game object to the ground
-            // DropGameObject();
+            // if the tag of this object is "naruto", then destroy this object
+            if (gameObject.CompareTag("qq_naruto"))
+            {
+                Debug.Log("QQQ Naruto is defeated!");
+                // use SceneLoader to load the next scene
+                SceneLoader.Instance.LoadNewScene("Assets/Scenes/Final.unity");
+                // Destroy the current scene
+                SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/test.unity");
+            }
+            else
+            {
+                qq_naruto.SetActive(true); // Show the QQ Naruto prefab
+                origin_naruto.SetActive(false); // Hide the original Naruto prefab
+            }
+
         }
     }
 
