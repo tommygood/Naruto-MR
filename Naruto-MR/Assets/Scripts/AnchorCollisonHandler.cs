@@ -11,6 +11,7 @@ public class AnchorCollisionHandler : MonoBehaviour
             Rigidbody rb = gameObject.AddComponent<Rigidbody>();
             rb.isKinematic = true; // 不被物理影響，只負責碰撞事件
         }
+        StartCoroutine(BGMManager.Instance.FadeIn(0));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,8 +33,10 @@ public class AnchorCollisionHandler : MonoBehaviour
                 {
                     Debug.Log("新手村結束！");
                     // use SceneLoader to load the next scene
+                    StartCoroutine(BGMManager.Instance.FadeOut());
                     SceneLoader.Instance.LoadNewScene("Assets/Scenes/test.unity");
                     // Destroy the current scene
+                    StartCoroutine(BGMManager.Instance.FadeIn(1));
                     SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/newbie.unity");
                 }
             }
