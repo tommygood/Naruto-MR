@@ -199,7 +199,6 @@ public class StoryManager : MonoBehaviour
         subtitle.text = linesManager.subtitles[3];
         subtitle.color = narutoColor;
         yield return Sleep(linesManager.linesDurations[3]);
-        npcController.isAttacking = false;
         linesManager.Play("S_1");
         subtitle.text = linesManager.subtitles[4];
         subtitle.color = sasukeColor;
@@ -248,5 +247,6 @@ public class StoryManager : MonoBehaviour
         subtitle.text = linesManager.subtitles[14];
         yield return Sleep(linesManager.linesDurations[15]);
         animationManager.SetAnimation("defeated", false);
+        npcController.isAttacking = false;
     }
 }

@@ -16,7 +16,7 @@ public class NarutoDamageHandler : MonoBehaviour
     public float damageInterval = 5; // Interval between damage checks
     private float damageCount = 0; // Counter for damage taken
 
-    private bool startCountDamage = false; // Flag to start counting damage
+    public bool startCountDamage = false; // Flag to start counting damage
 
     public GameObject qq_naruto; // Reference to the Naruto GameObject
 
@@ -94,7 +94,6 @@ public class NarutoDamageHandler : MonoBehaviour
             {
                 StartCoroutine(BGMManager.Instance.FadeOut());
                 qq_naruto.SetActive(true); // Show the QQ Naruto prefab
-                StartCoroutine(BGMManager.Instance.FadeIn(2));
                 origin_naruto.SetActive(false); // Hide the original Naruto prefab
                 
             }
