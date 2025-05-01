@@ -4334,7 +4334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1fdced5c9e3c473caa558464101e081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kyuubiPrefab: {fileID: 7005367843405412527, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
+  kyuubiPrefabs: {fileID: 0}
   effectPrefab: {fileID: 0}
   spawnPoint: {fileID: 0}
   kyuubiScale: {x: 1, y: 1, z: 1}

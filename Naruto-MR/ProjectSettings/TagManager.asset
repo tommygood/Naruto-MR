@@ -41,6 +41,9 @@ TagManager:
   - Audio-mudwall
   - Audio-muddrop
   - NarutoAttack
+  - Enemy
+  - SamplesInfoPanel
+  - qq_naruto
   layers:
   - Default
   - TransparentFX
