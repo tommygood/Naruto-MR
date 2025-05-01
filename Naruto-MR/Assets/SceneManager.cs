@@ -5,6 +5,11 @@ public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance;  // Singleton instance
 
+    private void Start()
+    {
+        SceneManager.LoadScene("Assets/Scenes/newbie.unity", LoadSceneMode.Additive);    
+    }
+
     private void Awake()
     {
         if (Instance == null)

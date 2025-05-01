@@ -3300,7 +3300,7 @@ MonoBehaviour:
     prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
     scale: {x: 0.03, y: 0.03, z: 0.03}
     lifeTime: 8
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 300254660}
   waterfallEffect:
     prefab: {fileID: 1992029900475280859, guid: 4dfb534a3a08e5d49bd0b6362fbedce1, type: 3}
     scale: {x: 1, y: 1, z: 1}
@@ -3321,7 +3321,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 10
     spawnPoint: {fileID: 0}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 1895288259}
   playHead: {fileID: 0}
   launchForce: 5
 --- !u!4 &1194958799
