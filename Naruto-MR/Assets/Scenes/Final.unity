@@ -1113,7 +1113,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1637,6 +1638,7 @@ MonoBehaviour:
   prefabA: {fileID: 0}
   uiCanvas: {fileID: 0}
   textUI: {fileID: 0}
+  fallSpeed: 0.2
 --- !u!4 &587175225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1388167568378441066, guid: ffd656bf2a3ba3d41b1e4a94b81b7c85, type: 3}
@@ -2639,6 +2641,7 @@ MonoBehaviour:
   prefabA: {fileID: 3897517431864121581, guid: c561dca5dae364aab9645496f7c04946, type: 3}
   uiCanvas: {fileID: 249689468}
   textUI: {fileID: 0}
+  fallSpeed: 0.2
 --- !u!4 &1069339543 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3340838444492905394, guid: 89e80c47615e4f043926d66492d3ca5f, type: 3}

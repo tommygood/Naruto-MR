@@ -103,7 +103,7 @@ namespace AnimationNamespace
             }
         }
 
-        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward", "boxing", "CastingSpell" };
+        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward", "boxing", "qq" };
 
         public void SetAnimation(string animation, bool active)
         {
@@ -190,56 +190,56 @@ public class StoryManager : MonoBehaviour
     {
         npcController.isAttacking = true;
         linesManager.Play("N_1");
-        subtitle.text = linesManager.subtitles[0];
+        subtitle.text = linesManager.subtitles[3];
         subtitle.color = narutoColor;
         yield return Sleep(linesManager.linesDurations[3]);
         npcController.isAttacking = false;
         linesManager.Play("S_1");
-        subtitle.text = linesManager.subtitles[1];
+        subtitle.text = linesManager.subtitles[4];
         subtitle.color = sasukeColor;
         yield return Sleep(linesManager.linesDurations[4]);
         linesManager.Play("N_2");
-        subtitle.text = linesManager.subtitles[2];
+        subtitle.text = linesManager.subtitles[5];
         subtitle.color = narutoColor;
         animationManager.SetAnimation("angry", true);
         yield return Sleep(linesManager.linesDurations[5]);
         linesManager.Play("S_2");
         subtitle.color = sasukeColor;
-        subtitle.text = linesManager.subtitles[3];
+        subtitle.text = linesManager.subtitles[6];
         yield return Sleep(linesManager.linesDurations[6]);
         linesManager.Play("N_3");
-        subtitle.text = linesManager.subtitles[4];
+        subtitle.text = linesManager.subtitles[7];
         subtitle.color = narutoColor;
         yield return Sleep(linesManager.linesDurations[7]);
         linesManager.Play("S_3");
-        subtitle.text = linesManager.subtitles[5];
+        subtitle.text = linesManager.subtitles[8];
         subtitle.color = sasukeColor;
         yield return Sleep(linesManager.linesDurations[8]);
         animationManager.SetAnimation("angry", false);
         linesManager.Play("N_4");
         subtitle.color = narutoColor;
-        subtitle.text = linesManager.subtitles[6];
+        subtitle.text = linesManager.subtitles[9];
         animationManager.SetAnimation("defeated", true);
         yield return Sleep(linesManager.linesDurations[9]);
         linesManager.Play("S_4");
-        subtitle.text = linesManager.subtitles[7];
+        subtitle.text = linesManager.subtitles[10];
         subtitle.color = sasukeColor;
         yield return Sleep(linesManager.linesDurations[10]);
         linesManager.Play("N_5");
-        subtitle.text = linesManager.subtitles[8];
+        subtitle.text = linesManager.subtitles[11];
         animationManager.SetAnimation("defeated", false);
         yield return Sleep(linesManager.linesDurations[11]);
         linesManager.Play("S_5");
-        subtitle.text = linesManager.subtitles[9];
+        subtitle.text = linesManager.subtitles[12];
         yield return Sleep(linesManager.linesDurations[12]);
         linesManager.Play("N_6");
         animationManager.SetAnimation("defeated", true);
         yield return Sleep(linesManager.linesDurations[13]);
         linesManager.Play("S_6");
-        subtitle.text = linesManager.subtitles[10];
+        subtitle.text = linesManager.subtitles[13];
         yield return Sleep(linesManager.linesDurations[14]);
         linesManager.Play("N_7");
-        subtitle.text = linesManager.subtitles[11];
+        subtitle.text = linesManager.subtitles[14];
         yield return Sleep(linesManager.linesDurations[15]);
         animationManager.SetAnimation("defeated", false);
     }

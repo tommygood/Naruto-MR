@@ -3,7 +3,7 @@ using UnityEngine;
 public class KyuubiSpawner : MonoBehaviour
 {
     [Header("Prefab 設定")]
-    public GameObject kyuubiPrefab;
+    public GameObject kyuubiPrefabs;
     public GameObject effectPrefab;
 
     [Header("生成位置 (可空)")]
@@ -32,9 +32,13 @@ public class KyuubiSpawner : MonoBehaviour
         // 計算生成位置
         Vector3 position = spawnPoint != null ? spawnPoint.position : Vector3.zero;
         Quaternion rotation = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
+        // set a 0,0, -15 rotation
+        rotation = Quaternion.Euler(0, 184, -10);
+        // minus position x and z
+        position = new Vector3(position.x-0f, position.y, position.z-10f);
 
         // 生成九尾
-        spawnedKyuubi = Instantiate(kyuubiPrefab, position, rotation);
+        spawnedKyuubi = Instantiate(kyuubiPrefabs, position, rotation);
         spawnedKyuubi.transform.localScale = kyuubiScale;
 
         // 取得九尾的 XZ 中心作為特效位置
@@ -42,11 +46,11 @@ public class KyuubiSpawner : MonoBehaviour
         Vector3 effectPos = new Vector3(kyuubiPos.x, kyuubiPos.y + effectYOffset, kyuubiPos.z);
 
         // 生成特效
-        spawnedEffect = Instantiate(effectPrefab, effectPos, rotation);
-        spawnedEffect.transform.localScale = effectScale;
+        //spawnedEffect = Instantiate(effectPrefab, effectPos, rotation);
+        //spawnedEffect.transform.localScale = effectScale;
 
         // 5 秒後銷毀
-        Destroy(spawnedKyuubi, 5f);
-        Destroy(spawnedEffect, 5f);
+        //Destroy(spawnedKyuubi, 5f);
+        //Destroy(spawnedEffect, 5f);
     }
 }

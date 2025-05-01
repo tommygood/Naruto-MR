@@ -35,8 +35,6 @@ public class NPCController : MonoBehaviour
     public float minDistance = 1.75f;
     public float rotationSpeed = 10f;
 
-    private float taijutsuCooldown;
-
     AnimationManager animationManager;
 
     public NarutoAttack narutoAttack;
@@ -46,7 +44,6 @@ public class NPCController : MonoBehaviour
     {
         if (!player) player = Camera.main.transform;
         currentCoolDown = coolDown;
-        taijutsuCooldown = 0f;
 
         agent = GetComponent<NavMeshAgent>();
         if (!agent) Debug.LogError("NavMeshAgent is missing!");
@@ -68,7 +65,8 @@ public class NPCController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        if (isAttacking) {
+        if (isAttacking)
+        {
 
             // check agent is active Stop" can only be called on an active agent that has been placed on a NavMesh.
             if (!agent.isOnNavMesh)
@@ -79,18 +77,17 @@ public class NPCController : MonoBehaviour
             agent.isStopped = true;
             return;
         }
-        
+
 
         // Decrement the timer
         currentCoolDown -= Time.deltaTime;
-        taijutsuCooldown -= Time.deltaTime;
         //Debug.Log("Current Cool Down: " + currentCoolDown);
 
         float distance = Vector3.Distance(agent.transform.position, player.position);
         Debug.Log("Distance to player: " + distance);
 
         // Perform taijutsu if the player is close enough
-        if (distance < taijutsuThreshold && taijutsuCooldown <= 0)
+        if (distance < taijutsuThreshold && currentCoolDown <= 0)
         {
             Debug.Log("xxx Performing Taijutsu!");
             StartCoroutine(PerformTaijutsu());
@@ -102,9 +99,16 @@ public class NPCController : MonoBehaviour
             StartCoroutine(CastNinjutsu());
         }
         // NPC will run toward the player or run away from the player
-        else {
+        else
+        {
             Vector3 destination = player.position - (player.position - transform.position).normalized * minDistance;
             destination.y = agent.transform.position.y;
+            // check agent is active Stop" can only be called on an active agent that has been placed on a NavMesh.
+            if (!agent.isOnNavMesh)
+            {
+                Debug.LogWarning("NavMeshAgent is not active or enabled!");
+                return;
+            }
             agent.SetDestination(destination);
             Debug.Log("xxx NPC is running toward the player!");
         }
@@ -127,18 +131,17 @@ public class NPCController : MonoBehaviour
             // Close range ninjutsu
             currentNinjutsu = Rasengan;
             Debug.Log("xxx Rasengan");
-            animationManager.SetAnimation("CastingSpell", true);
+            animationManager.SetAnimation("qq", true);
             yield return new WaitForSeconds(3);
-            animationManager.SetAnimation("CastingSpell", false);
+            animationManager.SetAnimation("qq", false);
         }
         else
         {
             // await this narutoAttack.LongDistanceAttack(narutoAttack.fireEffect, "clapping"); 
             // Long range ninjutsu
             yield return StartCoroutine(narutoAttack.LongDistanceAttack(narutoAttack.fireEffect, "clapping"));
-            
+
         }
-        yield return new WaitForSeconds(3);
         isAttacking = false;
         agent.isStopped = false;
         currentCoolDown = coolDown;
@@ -160,7 +163,6 @@ public class NPCController : MonoBehaviour
         animationManager.SetAnimation("boxing", false);
         isAttacking = false;
         agent.isStopped = false;
-        taijutsuCooldown = coolDown;
         currentCoolDown = coolDown;
     }
 }

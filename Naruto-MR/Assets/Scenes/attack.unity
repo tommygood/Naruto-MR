@@ -6730,8 +6730,8 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
-  windEffect:
-    prefab: {fileID: 7889607948873899617, guid: 9a504412f1061444bb18de98ad4be8d6, type: 3}
+  windSlamEffect:
+    prefab: {fileID: 0}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
