@@ -84,15 +84,12 @@ public class NarutoDamageHandler : MonoBehaviour
             {
                 Debug.Log("QQQ Naruto is defeated!");
                 // use SceneLoader to load the next scene
-                StartCoroutine(BGMManager.Instance.FadeOut());
                 SceneLoader.Instance.LoadNewScene("Assets/Scenes/Final.unity");
                 // Destroy the current scene
-                StartCoroutine(BGMManager.Instance.FadeIn(3));
                 SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/test.unity");
             }
             else
             {
-                StartCoroutine(BGMManager.Instance.FadeOut());
                 qq_naruto.SetActive(true); // Show the QQ Naruto prefab
                 origin_naruto.SetActive(false); // Hide the original Naruto prefab
                 

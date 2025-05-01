@@ -33,11 +33,9 @@ public class AnchorCollisionHandler : MonoBehaviour
                 {
                     Debug.Log("新手村結束！");
                     // use SceneLoader to load the next scene
-                    StartCoroutine(BGMManager.Instance.FadeOut());
                     DontDestroyOnLoad(this.gameObject);//the animator gameObject
                     SceneLoader.Instance.LoadNewScene("Assets/Scenes/test.unity");
                     // Destroy the current scene
-                    StartCoroutine(BGMManager.Instance.FadeIn(1));
                     SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/newbie.unity");
                 }
             }
