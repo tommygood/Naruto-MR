@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Hands; // Ensure the correct namespace for XRHandMeshController
 
 public class AnchorCollisionHandler : MonoBehaviour
 {
@@ -33,7 +34,11 @@ public class AnchorCollisionHandler : MonoBehaviour
                 {
                     Debug.Log("新手村結束！");
                     // use SceneLoader to load the next scene
-                    DontDestroyOnLoad(this.gameObject);//the animator gameObject
+                    XRHandMeshController controller = Object.FindFirstObjectByType<XRHandMeshController>();
+                    if (controller != null)
+                    {
+                        DontDestroyOnLoad(controller);
+                    }
                     SceneLoader.Instance.LoadNewScene("Assets/Scenes/test.unity");
                     // Destroy the current scene
                     SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/newbie.unity");

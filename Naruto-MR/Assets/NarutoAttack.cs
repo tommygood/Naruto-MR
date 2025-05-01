@@ -93,7 +93,7 @@ public class NarutoAttack : MonoBehaviour
 
     public IEnumerator ShortDistanceAttack(EffectNamespace.EffectSetting setting, string animationName)
     {
-        spawnPoint = GameObject.Find("bone_LeftClav").transform.position;
+        spawnPoint = GameObject.Find("bone_LeftClav").transform;
 
         if (setting != null && setting.prefab != null)
         {
@@ -131,7 +131,7 @@ public class NarutoAttack : MonoBehaviour
         }
         yield return null;
 
-        spawnPoint = NULL;
+        spawnPoint = null;
     }
     
 }

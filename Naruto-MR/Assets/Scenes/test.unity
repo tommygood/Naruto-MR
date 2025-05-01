@@ -3295,7 +3295,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4297,7 +4297,7 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: 70ff4b14c27dc1244859820e416789ad, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -4340,7 +4340,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4762,8 +4762,8 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
-  Rasengan:
-    prefab: {fileID: 5706960345115239278, guid: b7ccc161176536948b1b274f53795233, type: 3}
+  RasenganEffect:
+    prefab: {fileID: 0}
     scale: {x: 1, y: 1, z: 1}
     lifeTime: 2
     spawnPoint: {fileID: 0}
@@ -7350,10 +7350,6 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
-      propertyPath: m_Name
-      value: qq_naruto
-      objectReference: {fileID: 0}
     - target: {fileID: 915620496929744143, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7413,6 +7409,10 @@ PrefabInstance:
     - target: {fileID: 1800702098628815774, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
+      propertyPath: m_Name
+      value: qq_naruto
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7920,7 +7920,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8139,7 +8139,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8525,7 +8525,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8954,7 +8954,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -9286,7 +9286,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
