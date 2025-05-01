@@ -153,6 +153,7 @@ public class NPCController : MonoBehaviour
         isAttacking = true;
         agent.isStopped = true;
         Debug.Log("xxx Taijutsu");
+        animationManager.SetAnimation("clapping", false); // this is to stop the clapping animation
         animationManager.SetAnimation("boxing", true);
         yield return new WaitForSeconds(3);
         animationManager.SetAnimation("boxing", false);

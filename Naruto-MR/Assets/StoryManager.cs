@@ -130,6 +130,8 @@ public class StoryManager : MonoBehaviour
     public Color32 narutoColor = new Color32(255, 165, 0, 255);
     public Color32 sasukeColor = new Color32(30, 58, 138, 255);
 
+    public NarutoDamageHandler narutoDamageHandler;
+
     public int currentLevel = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -192,8 +194,9 @@ public class StoryManager : MonoBehaviour
         animationManager.SetAnimation("clapping", false);
     }
 
-    private IEnumerator Level2Init()
+    private IEnumerator Level2Init() 
     {
+        narutoDamageHandler.stopDamage = true;
         npcController.isAttacking = true;
         linesManager.Play("N_1");
         subtitle.text = linesManager.subtitles[3];
@@ -253,5 +256,6 @@ public class StoryManager : MonoBehaviour
         yield return Sleep(linesManager.linesDurations[15]);
         animationManager.SetAnimation("defeated", false);
         npcController.isAttacking = false;
+        narutoDamageHandler.stopDamage = false;
     }
 }

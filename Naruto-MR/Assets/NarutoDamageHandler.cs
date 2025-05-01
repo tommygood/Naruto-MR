@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI; // Needed for UI
 using AnimationNamespace;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class NarutoDamageHandler : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class NarutoDamageHandler : MonoBehaviour
     public GameObject qq_naruto; // Reference to the Naruto GameObject
 
     public GameObject origin_naruto; // Reference to the original Naruto GameObject
+
+    public KyuubiSpawner kyuubiSpawner; // Reference to the KyuubiSpawner script
+
+    public bool stopDamage = false; // Flag to stop damage
 
     void Start()
     {
@@ -57,7 +62,7 @@ public class NarutoDamageHandler : MonoBehaviour
             return; // Ignore if damage is not taken
         }
 
-        if (other.name.Contains("Effect_") && other.tag != "naruto_attack")
+        if (other.name.Contains("Effect_") && other.tag != "naruto_attack" && !stopDamage)
         {
             Debug.Log("NNN Naruto is hurt!" + other.name + " " + other.tag);
             StartCoroutine(playDropDamageAnimation());
@@ -90,6 +95,7 @@ public class NarutoDamageHandler : MonoBehaviour
             }
             else
             {
+                kyuubiSpawner.SpawnKyuubiWithEffect(); // Spawn Kyuubi with effect
                 qq_naruto.SetActive(true); // Show the QQ Naruto prefab
                 origin_naruto.SetActive(false); // Hide the original Naruto prefab
                 

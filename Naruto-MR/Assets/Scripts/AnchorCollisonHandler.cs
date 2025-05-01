@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Hands; // Ensure the correct namespace for XRHandMeshController
 
 public class AnchorCollisionHandler : MonoBehaviour
@@ -30,18 +31,26 @@ public class AnchorCollisionHandler : MonoBehaviour
                 // 計數+1
                 destroyedCount++;
 
-                if (destroyedCount == 6)
+                if (destroyedCount == 1)
                 {
                     Debug.Log("新手村結束！");
                     // use SceneLoader to load the next scene
                     XRHandMeshController controller = Object.FindFirstObjectByType<XRHandMeshController>();
                     if (controller != null)
                     {
-                        DontDestroyOnLoad(controller);
+                        // set the controller to inactive
+                        controller.gameObject.SetActive(false);
+                        Debug.Log("NN XRHandMeshController found!");
                     }
-                    SceneLoader.Instance.LoadNewScene("Assets/Scenes/test.unity");
+                    else {
+                        Debug.Log("NN XRHandMeshController not found!");
+                    }
                     // Destroy the current scene
                     SceneLoader.Instance.UnloadCurrentScene("Assets/Scenes/newbie.unity");
+                    // clean the scene manager
+
+                    SceneManager.LoadScene("Assets/Scenes/test.unity");
+                    
                 }
             }
             else

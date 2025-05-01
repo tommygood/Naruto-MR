@@ -35,8 +35,8 @@ public class NarutoAttack : MonoBehaviour
             Debug.Log("火特效");
             StartCoroutine(LongDistanceAttack(fireEffect, "clapping"));
         } else if (Input.GetKeyDown(KeyCode.X)) {
-            Debug.Log("Rasengan")
-            StartCoroutine(LongDistanceAttack(fireEffect, "CastingSpell"));
+            Debug.Log("Rasengan");
+            StartCoroutine(LongDistanceAttack(RasenganEffect, "CastingSpell"));
         }
     }
 
@@ -91,12 +91,15 @@ public class NarutoAttack : MonoBehaviour
         yield return null;
     }
 
+    public Transform spawnPoint2; // 發射點2
+
     public IEnumerator ShortDistanceAttack(EffectNamespace.EffectSetting setting, string animationName)
     {
-        spawnPoint = GameObject.Find("bone_LeftClav").transform;
+        spawnPoint = spawnPoint2;
 
         if (setting != null && setting.prefab != null)
         {
+            animationManager.SetAnimation("clapping", false); // this is to stop the clapping animation
             animationManager.SetAnimation("CastingSpell", true);
             yield return Sleep(5f);
             GameObject effect = Instantiate(setting.prefab, spawnPoint.position, Quaternion.identity);

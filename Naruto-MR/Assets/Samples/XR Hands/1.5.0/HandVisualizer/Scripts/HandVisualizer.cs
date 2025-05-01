@@ -457,6 +457,8 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 
             public void ToggleDrawMesh(bool drawMesh)
             {
+                if (m_MeshController == null)
+                    return;
                 m_MeshController.enabled = drawMesh;
                 if (!drawMesh)
                     m_MeshController.handMeshRenderer.enabled = false;
@@ -475,8 +477,12 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 
             public void SetVelocityType(VelocityType velocityType)
             {
-                for (int jointIndex = 0; jointIndex < m_VelocityParents.Length; ++jointIndex)
-                    ToggleRenderers<LineRenderer>(velocityType != VelocityType.None, m_VelocityParents[jointIndex].transform);
+                for (int jointIndex = 0; jointIndex < m_VelocityParents.Length; ++jointIndex) {
+                    if (m_VelocityParents[jointIndex] == null)
+                        continue;
+                   ToggleRenderers<LineRenderer>(velocityType != VelocityType.None, m_VelocityParents[jointIndex].transform);
+                }
+                    
             }
 
             public void UpdateJoints(

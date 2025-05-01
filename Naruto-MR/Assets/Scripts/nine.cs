@@ -19,15 +19,7 @@ public class KyuubiSpawner : MonoBehaviour
     private GameObject spawnedKyuubi;
     private GameObject spawnedEffect;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SpawnKyuubiWithEffect();
-        }
-    }
-
-    void SpawnKyuubiWithEffect()
+    public void SpawnKyuubiWithEffect()
     {
         // 計算生成位置
         Vector3 position = spawnPoint != null ? spawnPoint.position : Vector3.zero;
