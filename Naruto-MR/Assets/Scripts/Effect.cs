@@ -20,7 +20,7 @@ namespace EffectNamespace
         public EffectSetting windSlamEffect;
         public EffectSetting mudwallEffect;
         public EffectSetting muddropEffect;
-
+        public EffectSetting rasenganEffect;
 
         public Transform spawnPoint; // 發射點
         public Transform playHead; // 頭盔

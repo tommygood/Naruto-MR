@@ -103,7 +103,7 @@ namespace AnimationNamespace
             }
         }
 
-        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward", "boxing", "qq" };
+        private List<string> animationTypes = new List<string> { "running", "clapping", "backflip", "frontflip", "defeated", "angry", "uppercut", "stumble_backward", "boxing", "qq", "CastingSpell" };
 
         public void SetAnimation(string animation, bool active)
         {

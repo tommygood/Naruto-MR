@@ -21,7 +21,6 @@ public class NPCController : MonoBehaviour
     public Ninjutsu Waterfall = new Ninjutsu(NinjutsuName.Waterfall, 3, ElementType.Water);
     public Ninjutsu PhoenixFire = new Ninjutsu(NinjutsuName.PhoenixFire, 3, ElementType.Fire);
     public Ninjutsu Rasengan = new Ninjutsu(NinjutsuName.Rasengan, 2, ElementType.None);
-    // There are still other physical attacks needed to be add ...
 
     public int currentNinjutsu;
 
@@ -129,11 +128,7 @@ public class NPCController : MonoBehaviour
         if (distance <= CloseRangeThreshold)
         {
             // Close range ninjutsu
-            currentNinjutsu = Rasengan;
-            Debug.Log("xxx Rasengan");
-            animationManager.SetAnimation("qq", true);
-            yield return new WaitForSeconds(3);
-            animationManager.SetAnimation("qq", false);
+            yield return StartCoroutine(narutoAttack.ShortDistanceAttack(narutoAttack.fireEffect, "CastingSpell"));
         }
         else
         {
