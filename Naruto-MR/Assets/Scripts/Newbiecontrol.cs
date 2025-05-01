@@ -20,7 +20,7 @@ public class NewbieControl : MonoBehaviour
         Debug.Log("NewbieControl Start()");
         EnableMRUKManager();
         CreateTargetsBasedOnName("TABLE_EffectMesh");
-        CreateTargetsBasedOnName("WINDOW_FRAME_EffectMesh");
+        CreateImageRowOnWallFace("PLANT");
     }
 
     void Update()
@@ -29,9 +29,8 @@ public class NewbieControl : MonoBehaviour
         {
             Debug.Log("Creating anchors...");
             EnableMRUKManager();
-            CreateTargetsBasedOnName("TABLE_EffectMesh");
+            CreateTargetsBasedOnName("－                                ");
         }
-
     }
 
     private void CreateTargetsBasedOnName(string targetName)
@@ -108,70 +107,69 @@ public class NewbieControl : MonoBehaviour
         Debug.Log("Room bound");
 
         // 一進入自動建立圖片
-        CreateImageRowOnWallFace();
+        CreateImageRowOnWallFace("PLANT");
     }
 
-
-    private void CreateImageRowOnWallFace()
+    private void CreateImageRowOnWallFace(string targetName)
     {
-    string[] texturePaths = { "Image/a", "Image/b", "Image/c", "Image/d", "Image/e", "Image/f" };
+        Debug.Log("CreateImageRowOnWallFace() 被呼叫");
 
-    var potentialTargets = new List<GameObject>();
-    var windows = FindObjectsOfType<GameObject>();
-    string targetName = "WINDOW_FRAME_EffectMesh";
+        string[] texturePaths = { "Image/a", "Image/b", "Image/c", "Image/d", "Image/e", "Image/f" };
 
-    foreach (var obj in windows)
-    {
-        if (obj.name.Equals(targetName))
+        var potentialTargets = new List<GameObject>();
+        var allObjects = FindObjectsOfType<GameObject>();
+
+        foreach (var obj in allObjects)
         {
-            potentialTargets.Add(obj);
-        }
-    }
-
-    if (potentialTargets.Count == 0)
-    {
-        Debug.LogWarning($"未找到 {targetName}");
-        return;
-    }
-
-    int textureIndex = 0;
-    foreach (GameObject window in windows)
-    {
-        if (textureIndex >= texturePaths.Length)
-        {
-            Debug.Log("圖片數量不足以覆蓋所有 WINDOW");
-            break;
+            if (obj.name.Equals(targetName))
+            {
+                potentialTargets.Add(obj);
+            }
         }
 
-        Texture2D tex = Resources.Load<Texture2D>(texturePaths[textureIndex]);
-        if (tex == null)
+        if (potentialTargets.Count == 0)
         {
-            Debug.LogWarning($"無法載入圖片 {texturePaths[textureIndex]}");
+            Debug.LogWarning($"未找到 {targetName}");
+            return;
+        }
+
+        int textureIndex = 0;
+        foreach (var target in potentialTargets)
+        {
+            Debug.Log($"處理 WINDOW: {target.name}");
+
+            if (textureIndex >= texturePaths.Length)
+            {
+                Debug.Log("圖片數量不足以覆蓋所有 WINDOW");
+                break;
+            }
+
+            Texture2D tex = Resources.Load<Texture2D>(texturePaths[textureIndex]);
+            if (tex == null)
+            {
+                Debug.LogWarning($"無法載入圖片 {texturePaths[textureIndex]}");
+                textureIndex++;
+                continue;
+            }
+
+            Material mat = new Material(Shader.Find("Unlit/Transparent")); // 可改為 "Unlit/Texture" 測試
+            mat.mainTexture = tex;
+
+            GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            quad.GetComponent<Renderer>().material = mat;
+
+            Vector3 forward = target.transform.forward;
+            quad.transform.position = target.transform.position + forward * 0.05f;
+            quad.transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+            quad.transform.localScale = Vector3.one * 0.8f;
+
+            quad.transform.SetParent(target.transform);
+
+            Debug.Log($"已在 WINDOW 上貼圖：{texturePaths[textureIndex]}");
+
             textureIndex++;
-            continue;
         }
 
-        Material mat = new Material(Shader.Find("Unlit/Transparent"));
-        mat.mainTexture = tex;
-
-        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        quad.GetComponent<Renderer>().material = mat;
-
-        // 在前方稍微往外一點貼圖
-        Vector3 forward = window.transform.forward;
-        quad.transform.position = window.transform.position + forward * 0.05f;
-
-        quad.transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
-        quad.transform.localScale = Vector3.one * 0.3f;
-        quad.transform.SetParent(window.transform);
-
-        Debug.Log($"已在 WINDOW 上貼圖：{texturePaths[textureIndex]}");
-        textureIndex++;
+        Debug.Log("圖片貼圖作業完成");
     }
-
-    Debug.Log("圖片貼圖作業完成");
-    }
-
-
-
 }

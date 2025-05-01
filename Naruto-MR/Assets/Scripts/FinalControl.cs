@@ -48,21 +48,27 @@ public class FinalControl : MonoBehaviour
         if (prefabA == null || player == null)
             yield break;
 
-        Vector3 dropPosition = player.transform.position + new Vector3(0, 1.5f, 0);
-        GameObject obj = Instantiate(prefabA, dropPosition, Quaternion.identity);
+        // 從相機前方 0.5m、上方 1.0m 掉落
+        Vector3 forward = player.transform.forward;
+        Vector3 dropPosition = player.transform.position + forward * 2f + Vector3.up * 1.0f;
 
+        GameObject obj = Instantiate(prefabA, dropPosition, Quaternion.identity);
         Debug.Log("開始緩慢掉落 Prefab A");
 
-        float fallSpeed = 0.001f; // 每秒下降 0.2 公尺
+        float fallSpeed = 0.5f; // 每秒掉落速度
         bool hasLanded = false;
 
         while (!hasLanded)
         {
-            if (Physics.Raycast(obj.transform.position, Vector3.down, out RaycastHit hit, 0.1f))
+            // 射線偵測是否碰到 Plane
+            if (Physics.Raycast(obj.transform.position, Vector3.down, out RaycastHit hit, 0.05f))
             {
-                Debug.Log("Prefab A 已落地");
-                hasLanded = true;
-                break;
+                if (hit.collider.gameObject.name == "Plane")
+                {
+                    Debug.Log("Prefab A 已落在 Plane 上");
+                    hasLanded = true;
+                    break;
+                }
             }
 
             obj.transform.position += Vector3.down * fallSpeed * Time.deltaTime;
