@@ -470,8 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e286b381bc50c924ab6417ca5a97196e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 20
-  MaxHP: 20
+  HP: 200
+  MaxHP: 200
   worldSpaceCanvas: {fileID: 1665175710}
   healthBarFill: {fileID: 1986621396}
   damageInterval: 5
@@ -4305,7 +4305,7 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: 70ff4b14c27dc1244859820e416789ad, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 0
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -5395,8 +5395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e286b381bc50c924ab6417ca5a97196e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 20
-  MaxHP: 20
+  HP: 100
+  MaxHP: 100
   worldSpaceCanvas: {fileID: 834810085}
   healthBarFill: {fileID: 725114039}
   damageInterval: 5
@@ -7309,57 +7309,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140927762}
     m_Modifications:
-    - target: {fileID: -8353535606260669508, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_TagString
-      value: NarutoLeftHand
-      objectReference: {fileID: 0}
-    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.023
-      objectReference: {fileID: 0}
-    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.521
-      objectReference: {fileID: 0}
-    - target: {fileID: -2280264549231919669, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_TagString
-      value: NarutoRightHand
-      objectReference: {fileID: 0}
-    - target: {fileID: -28792242893392272, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.497
-      objectReference: {fileID: 0}
-    - target: {fileID: 2695410586857405671, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_TagString
-      value: NarutoAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 3123574053311960300, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
+    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
+      propertyPath: m_Name
+      value: qq_naruto
       objectReference: {fileID: 0}
     - target: {fileID: 915620496929744143, guid: d2af37d45a362924fa057bfbb86fb0ed, type: 3}
       propertyPath: m_IsActive
@@ -7421,9 +7373,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4045271738121133106, guid: d19b0b49b9a014c90b375f0ac57bd0d0, type: 3}
-      propertyPath: m_Name
-      value: qq_naruto
+    - target: {fileID: -8353535606260669508, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_TagString
+      value: NarutoLeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.023
+      objectReference: {fileID: 0}
+    - target: {fileID: -7460847431466949745, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.521
+      objectReference: {fileID: 0}
+    - target: {fileID: -2280264549231919669, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_TagString
+      value: NarutoRightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: -28792242893392272, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695410586857405671, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_TagString
+      value: NarutoAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123574053311960300, guid: 92684202418d93c40baf49aeec347ebc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d6aee673b85cf524a93b55a126fc3b02, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e36eb20520b10d45ada08f4c0cc7d65, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
